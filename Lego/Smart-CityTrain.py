@@ -279,9 +279,9 @@ def get_rc():
                 #default behavior
                 enable_ato = False
                 if reversed_left:
-                    speed = power_decrease()
-                else:
                     speed = power_increase()
+                else:
+                    speed = power_decrease()
 
             elif lm_function == 1:
                 #light function
@@ -301,9 +301,9 @@ def get_rc():
                 #default behavior
                 enable_ato = False
                 if reversed_left:
-                    speed = power_decrease()
-                else:
                     speed = power_increase()
+                else:
+                    speed = power_decrease()
 
             elif rm_function == 1:
                 #light function
