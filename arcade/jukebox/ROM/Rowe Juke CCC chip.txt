@@ -1,0 +1,6 @@
+Rowe Juke Box model CD100B
+ central control computer chip
+
+version 4.1
+
+device 27C1000
