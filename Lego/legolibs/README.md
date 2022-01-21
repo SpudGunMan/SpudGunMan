@@ -25,7 +25,6 @@ python3 create_install_script.py
 #
 # https://github.com/antonvh/mpy-robot-tools 
 # https://github.com/antonvh/UartRemote
-# https://github.com/ceeoinnovations/SPIKEPrimeBackpacks
 #
 #
 # Open the console/Debug and watch for notice to unplug USB BEFORE you upload/run
