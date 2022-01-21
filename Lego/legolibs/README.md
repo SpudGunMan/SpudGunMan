@@ -1,4 +1,7 @@
-tool to gather and compile lego micropython tools and library back to a OEM hub after LEGO firmware update
+tool to gather and compile lego micropython tools and library back to a OEM hub after LEGO firmware update.
+I commonly have accidental format to factory OEM flash and I have all my files lost and its a pain to gather them back up,
+so a compiler and installer forked from the mpy-tools project's installer to more modular installer for any project
+
 ```
 #!python3
 
