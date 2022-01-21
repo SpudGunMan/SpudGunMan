@@ -17,7 +17,6 @@
 #
 # https://github.com/antonvh/mpy-robot-tools 
 # https://github.com/antonvh/UartRemote
-# https://github.com/ceeoinnovations/SPIKEPrimeBackpacks
 #
 #
 # Open the console/Debug and watch for notice to unplug USB BEFORE you upload/run
@@ -29,12 +28,11 @@ from functools import partial
 
 ANTONVH_MPY_TOOLS_DIR = '../mpy-robot-tools/mpy_robot_tools/'
 ANTONVH_LIB_UART = '../LMS-uart-esp/Libraries/UartRemote/MicroPython/uartremote.py'
-LPF2_LIB = '../SPIKEPrimeBackpacks/examples/LPF2.py'
 COMPILED_MPY_DIR = 'build/'
 INSTALLER = 'install_legolibs.py'
 BASE_SCRIPT = 'base_script.py'
 BAD_NAMES = ['__pycache__.py','REDME.md']
-COMPILE_LIST = [ANTONVH_MPY_TOOLS_DIR, ANTONVH_LIB_UART, LPF2_LIB]
+COMPILE_LIST = [ANTONVH_MPY_TOOLS_DIR, ANTONVH_LIB_UART]
  
 mpy_installer_files_encoded = []
 exception = ''
