@@ -1,8 +1,9 @@
+/lego/UART/[OpenMV](https://github.com/SpudGunMan/SpudGunMan/tree/main/Lego/UART/OpenMV)
+  script of lego spike/51515 and OpenMV using UART shell for data, uses [uartremote](https://github.com/antonvh/UartRemote) library
+
 /lego/[legolibs](https://github.com/SpudGunMan/SpudGunMan/tree/main/Lego/legolibs)
 
-  tool to gather and compile lego micropython tools and library back to a OEM hub after LEGO firmware update. I commonly have accidental format to factory OEM flash and I have all my files lost and its a pain to gather them back up, so a compiler and installer forked from the mpy-tools project's installer to more modular installer for any project
-
- - Lego Mindstorms 51515 and Lego Spike Hub
+  tool to gather and compile lego micropython tools and library back to a OEM hub after LEGO firmware update. I commonly have accidental format to factory OEM flash and I have all my files lost and its a pain to gather them back up, so a compiler and installer forked from the mpy-tools project's installer to more modular installer for any project, items in your project directory are safe unless content refereshed this allows builk depoyment of bricks for class etc.
 
 /lego/[SmartCityTrain.py](https://github.com/SpudGunMan/SpudGunMan/blob/main/Lego/Smart-CityTrain.py) 
 
