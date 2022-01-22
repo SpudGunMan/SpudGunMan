@@ -17,7 +17,7 @@
 #
 # https://github.com/antonvh/mpy-robot-tools 
 # https://github.com/antonvh/UartRemote
-#
+# https://github.com/antonvh/LEGO-HuskyLenslib/blob/master/Library/pyhuskylens.py
 #
 # Open the console/Debug and watch for notice to unplug USB BEFORE you upload/run
 
@@ -28,11 +28,12 @@ from functools import partial
 
 ANTONVH_MPY_TOOLS_DIR = '../mpy-robot-tools/mpy_robot_tools/'
 ANTONVH_LIB_UART = '../LMS-uart-esp/Libraries/UartRemote/MicroPython/uartremote.py'
+ANTONVH_LIB_HUSKY = '../LEGO-HuskyLenslib/Library/pyhuskylens.py'
 COMPILED_MPY_DIR = 'build/'
 INSTALLER = 'install_legolibs.py'
 BASE_SCRIPT = 'base_script.py'
 BAD_NAMES = ['__pycache__.py','REDME.md']
-COMPILE_LIST = [ANTONVH_MPY_TOOLS_DIR, ANTONVH_LIB_UART]
+COMPILE_LIST = [ANTONVH_MPY_TOOLS_DIR, ANTONVH_LIB_UART, ANTONVH_LIB_HUSKY]
  
 mpy_installer_files_encoded = []
 exception = ''
