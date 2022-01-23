@@ -22,7 +22,7 @@ from pybricks.tools import wait, StopWatch
 
 # Remote Button Functions 0 default, 1 light control, 2 ATO Enable
 #   right +/-
-rp_function = 2
+rp_function = 0
 rm_function = 0
 #   left +/-
 lp_function = 0
@@ -32,21 +32,24 @@ lm_function = 0
 reversed_left = False
 reversed_right = False
 
-# Desired drive speed in mm per second.
+# Desired ATO speed in mm per second.
 ato_speed = 100
 
 # These are the sensor reflection values in this setup.
 # Adapt them to match your light conditions.
 ato_light = 80
 ato_dark = 39
-# set debug, watch console and move train engine by hand on track
+ato_red = 0
+ato_yellow = 0
+
+# set IR debug, watch console and move train engine by hand on track
 debug_ir = False
 
 #if LED lights how bright 0-100
 led_brightness = 20
 
-# Initalize  idle shutdown timer, 4min 240000ms default
-sleep_timeout = 240000
+# Initalize  idle shutdown timer, 5min 240000ms default
+sleep_timeout = 300000
 watchdog = StopWatch()
 watchdog.reset()
 
@@ -172,6 +175,7 @@ def ato():
     enable_ato = True
     print ("ATO Active")
     #enhancment for detecting colors and acting on them
+    return enable_ato
 
 def ato_power():
     global ato_light, ato_dark, speed, position, on_track, debug_ir, reflection
