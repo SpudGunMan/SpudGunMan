@@ -9,18 +9,18 @@ def calc_hash(b):
 
 error=False
 exception=''
-install_path='/projects/legolibs/'
+legoHub_install_path='/projects/legolibs/'
 
 try:
     #directory to write on hub by default user content is in projects
-    os.mkdir(install_path)
+    os.mkdir(legoHub_install_path)
 except Exception as e:
     error=True
     exception += (' directory create ,')
     print(e)
 
 for file, code, hash_gen in mpy_files_encoded:
-    target_loc = install_path+file
+    target_loc = legoHub_install_path+file
 
     # check for file and remove
     try: # remove any old versions of library
@@ -31,7 +31,7 @@ for file, code, hash_gen in mpy_files_encoded:
 
     # hash_gen=code[1]
     try:
-        print('writing '+file+' to Hub ' +install_path)
+        print('writing '+file+' to Hub ' +legoHub_install_path)
         with open(target_loc,'wb') as f:
             for chunk in code:
                 f.write(ubinascii.a2b_base64(chunk))
