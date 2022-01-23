@@ -5,12 +5,12 @@
 # on the offical lego app And run to install. The transfer and program run 
 # will take extra time. 
 # 
-# To restore to OEM, allow LEGO app to update your hub, library's will be removed.
+# To restore to OEM, allow LEGO app to update your hub, libaries will be removed.
 #
 # 
 # installer idea from antonsmindstorms.com
 #
-# The following librarys will be checked and used if they are
+# The following libaries will be checked and used if they are
 # git cloned into the same folder as this project.
 # by default if they exist they will be loaded
 # to add your own just create a new item ih the compile_list
@@ -18,10 +18,11 @@
 # https://github.com/antonvh/mpy-robot-tools 
 # https://github.com/antonvh/UartRemote
 # https://github.com/antonvh/LEGO-HuskyLenslib/blob/master/Library/pyhuskylens.py
+# https://github.com/antonvh/SerialTalk/tree/master/serialtalk
 #
 # Open the console/Debug and watch for notice to unplug USB BEFORE you upload/run
 
-import binascii, mpy_cross, time
+import binascii, mpy_cross
 import hashlib
 import os
 from functools import partial
@@ -29,11 +30,12 @@ from functools import partial
 ANTONVH_MPY_TOOLS_DIR = '../mpy-robot-tools/mpy_robot_tools/'
 ANTONVH_LIB_UART = '../LMS-uart-esp/Libraries/UartRemote/MicroPython/uartremote.py'
 ANTONVH_LIB_HUSKY = '../LEGO-HuskyLenslib/Library/pyhuskylens.py'
-COMPILED_MPY_DIR = 'build/'
+ANTONVH_LIB_SERIAL = '../SerialTalk/serialtalk/mshubserial.py'
+COMPILED_MPY_DIR = './build/'
 INSTALLER = 'install_legolibs.py'
 BASE_SCRIPT = 'base_script.py'
 BAD_NAMES = ['__pycache__.py','REDME.md']
-COMPILE_LIST = [ANTONVH_MPY_TOOLS_DIR, ANTONVH_LIB_UART, ANTONVH_LIB_HUSKY]
+COMPILE_LIST = [ANTONVH_MPY_TOOLS_DIR, ANTONVH_LIB_SERIAL, ANTONVH_LIB_HUSKY]
  
 mpy_installer_files_encoded = []
 exception = ''
@@ -43,25 +45,32 @@ working_list=[]
 
 def mpy_tools_compile(py_file_in, build_dir):
     global mpy_installer_files_encoded
-    #in_dir = os.path.dirname(py_file_in)
+
     in_file = os.path.basename(py_file_in)
+    #in_dir = os.path.dirname(py_file_in)
+    out_file = in_file.split(".")[0]+".mpy"
+    out_file_loc = build_dir+out_file
 
     if in_file in BAD_NAMES:
         #skip file
         return None
 
-    out_file = in_file.split(".")[0]+".mpy"
-    out_file_loc = build_dir+out_file
-    mpy_cross.run('-march=armv6', py_file_in,'-o', out_file_loc)
-    time.sleep(0.5)
-    with open(out_file_loc,'rb') as mpy_file:
-        file_hash = hashlib.sha256(mpy_file.read()).hexdigest()
-    chunks = []
-    with open(out_file_loc,'rb') as mpy_file:
-        for chunk in iter(partial(mpy_file.read, 2**10), b''):
-            chunks += [binascii.b2a_base64(chunk).decode('utf-8')]
+    try:
+        mpy_cross.run('-march=armv6', py_file_in,'-o', out_file_loc)
+        
+        with open(out_file_loc,'rb') as mpy_file:
+            file_hash = hashlib.sha256(mpy_file.read()).hexdigest()
 
-    print(out_file,": ",len(chunks)," chunks of ",2**10)
+        chunks = []
+        with open(out_file_loc,'rb') as mpy_file:
+            for chunk in iter(partial(mpy_file.read, 2**10), b''):
+                chunks += [binascii.b2a_base64(chunk).decode('utf-8')]
+                
+    except Exception as e:
+        print(e)
+    
+
+    print('finished:',out_file,": ",len(chunks)," chunks of ",2**10)
 
     # string for final installer
     mpy_installer_files_encoded += [(
@@ -99,7 +108,7 @@ for library in COMPILE_LIST:
         if isDirectory:
             lib_dir = os.path.dirname(library) + '/'
             #compile script a directory of .py files, the BADWORDS is used in this
-            print('diretory scan for', library, lib_dir)
+            print('compiling directory:', library, lib_dir)
             try:
                 files = [f for f in os.listdir(lib_dir)]
                 for f in files:
@@ -115,7 +124,6 @@ for library in COMPILE_LIST:
                 if os.path.exists(library):
                     lib_filename = os.path.basename(library)
                     lib_dir = os.path.dirname(library) + '/'
-                    print('found ',library)
                     mpy_tools_compile(lib_dir+lib_filename, COMPILED_MPY_DIR)
             except Exception as e:
                 error=True
