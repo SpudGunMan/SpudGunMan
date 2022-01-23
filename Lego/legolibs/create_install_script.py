@@ -35,7 +35,7 @@ COMPILED_MPY_DIR = './build/'
 INSTALLER = 'install_legolibs.py'
 BASE_SCRIPT = 'base_script.py'
 BAD_NAMES = ['__pycache__.py','REDME.md']
-COMPILE_LIST = [ANTONVH_MPY_TOOLS_DIR, ANTONVH_LIB_SERIAL, ANTONVH_LIB_HUSKY]
+COMPILE_LIST = [ANTONVH_MPY_TOOLS_DIR, ANTONVH_LIB_UART, ANTONVH_LIB_SERIAL, ANTONVH_LIB_HUSKY]
  
 mpy_installer_files_encoded = []
 exception = ''
@@ -50,14 +50,15 @@ def mpy_tools_compile(py_file_in, build_dir):
     #in_dir = os.path.dirname(py_file_in)
     out_file = in_file.split(".")[0]+".mpy"
     out_file_loc = build_dir+out_file
+    in_file_symlink = os.path.islink(py_file_in)
 
-    if in_file in BAD_NAMES:
+    if (in_file in BAD_NAMES) or (in_file_symlink):
         #skip file
         return None
 
     try:
         mpy_cross.run('-march=armv6', py_file_in,'-o', out_file_loc)
-        
+
         with open(out_file_loc,'rb') as mpy_file:
             file_hash = hashlib.sha256(mpy_file.read()).hexdigest()
 
