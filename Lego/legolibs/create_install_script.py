@@ -27,10 +27,10 @@ import hashlib
 import os
 from functools import partial
 
-ANTONVH_MPY_TOOLS_DIR = '../mpy-robot-tools/mpy_robot_tools/'
-ANTONVH_LIB_UART = '../LMS-uart-esp/Libraries/UartRemote/MicroPython/uartremote.py'
-ANTONVH_LIB_HUSKY = '../LEGO-HuskyLenslib/Library/pyhuskylens.py'
-ANTONVH_LIB_SERIAL = '../SerialTalk/serialtalk/mshubserial.py'
+ANTONVH_MPY_TOOLS_DIR = '../../../mpy-robot-tools/mpy_robot_tools/'
+ANTONVH_LIB_UART = '../../../UartRemote/MicroPython/uartremote.py'
+ANTONVH_LIB_HUSKY = '../../../LEGO-HuskyLenslib/Library/pyhuskylens.py'
+ANTONVH_LIB_SERIAL = '../../../SerialTalk/serialtalk/mshubserial.py'
 COMPILED_MPY_DIR = './build/'
 INSTALLER = 'install_legolibs.py'
 BASE_SCRIPT = 'base_script.py'
