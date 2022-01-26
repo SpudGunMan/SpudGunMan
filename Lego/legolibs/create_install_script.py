@@ -6,8 +6,7 @@
 # will take extra time. 
 # 
 # To restore to OEM, allow LEGO app to update your hub, libaries will be removed.
-#
-# 
+# requires pip3 install mpy-cross
 # installer idea from antonsmindstorms.com
 #
 # The following libaries will be checked and used if they are
@@ -42,6 +41,7 @@ exception = ''
 is_dir = False
 error=False
 working_list=[]
+chunks = []
 
 def mpy_tools_compile(py_file_in, build_dir):
     global mpy_installer_files_encoded
