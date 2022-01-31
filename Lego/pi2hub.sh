@@ -9,7 +9,7 @@ HUB0="2C:AB:33:5D:00:00"
 # optional: python3 -m pip install rshell
 #
 echo "pi2LegoHub BT/TTY connector for linux shell on raspberry pi"
-echo "Starting BT handlers..."
+echo "Starting BT handler, connect hub now by pressing BT button."
 echo
 bluetoothctl -- pair $HUB0
 #bluetoothctl pair $HUB0
