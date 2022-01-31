@@ -1,0 +1,1 @@
+![img_oz](../etc/pic/oz.jpg)
