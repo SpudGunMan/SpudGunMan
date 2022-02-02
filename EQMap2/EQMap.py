@@ -57,16 +57,16 @@ def repaintMap():
 	#displayManager.displayMagnitude(cqMag)
 	#replaced with below displayDBStats
 
-	# Display EQ depth
-	#displayManager.displayDepth(cqDepth)
-	displayManager.displayDBStats(cqMag, cqDepth, str(eventDB.getLargestEvent()))
-
 	# Display EQ location
 	#displayManager.displayLocation(cqLocation, cqMag)
 	displayManager.displayEventLong(cqLocation, cqMag, cqDepth)
 
 	# Display number of EQ events
 	displayManager.displayNumberOfEvents(eventDB.numberOfEvents())
+
+	# Display EQ depth
+	#displayManager.displayDepth(cqDepth)
+	displayManager.displayDBStats(cqMag, cqDepth, str(eventDB.getLargestEvent()))
 
 	# Display all of the EQ events in the DB
 	count = eventDB.numberOfEvents()
@@ -121,15 +121,15 @@ def main():
 			# Get the current time
 			now = datetime.now()
 
-			# Reset the DB at 10:00PM so display show EQs per day
-			# And we don't loose the EQ events between 10 and midnight
-			if now.hour == 22 and dbCleared == False:
+			# Reset the DB at 0:00 so display show EQs per day TODO settings menu
+			# And we don't loose the EQ events
+			if now.hour == 0 and dbCleared == False:
 				eventDB.clear()
 				dbCleared = True
 
-			# Now check to see if the display should be off or on
-			if now.hour > 6 and now.hour < 22:
-				# Normal viewing hours have arrived
+			# Now check to see if the display should be off or on TODO settings menu
+			if now.hour > 6 and now.hour < 22: 
+				# Normal viewing hours have arrived TODO is this working?
 				# If display is off, turn it on
 				if displayState == False:
 					displayManager.backlight(True)
@@ -191,7 +191,7 @@ def main():
 				else:
 					displayManager.mapEarthquake(cqLon, cqLat, cqMag, BLACK)
 					blinkToggle = True
-					# Display current local time on the off beat
+					# Update current display time on the off beat
 					displayManager.displayCurrentTime()
 
 				ftForBlink = millis() + BLINK_TIME_MS
@@ -203,3 +203,4 @@ def main():
 if __name__ == '__main__':
 	main()
 	
+

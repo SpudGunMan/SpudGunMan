@@ -72,7 +72,7 @@ class DisplayManager:
 		except:
 			return False
 
-	# Backlight control
+	# Backlight control not tested yet
 	def backlight(self, b):
 		if b:
 			# Turn backlight on
@@ -245,7 +245,7 @@ class DisplayManager:
 		milesStr = "@{d:.2f}mi"
 		location = location[:24] #truncate long names centering from pygame will just overlap badly
 		self.drawCenteredText(self.bottomTextRow,location + (" Mag:" + str(mag)) + (milesStr.format(d = miles)))
-		self.setTextColor(self.white)
+		return True
 	
 	def displayDBStats(self, mag, depth, largestmag):
 		#pygame.draw.rect(self.screen,self.black,(270,0,(self.screenWidth - 1),35))
