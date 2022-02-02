@@ -3,6 +3,8 @@
 # About
 This is a Earthquake Map Display for Raspberrypi Attached screen
 
+you can download alpha not currently its own repository till more testing done
+
 This fork adds additoional features
 - command line output
 - working clock
