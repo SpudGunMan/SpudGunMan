@@ -33,7 +33,6 @@ ftForTitlePageDisplay = 0
 # Current quake data
 cqID  = "27"
 cqLocation = "ColoSpgs"
-cqLocation_long = "Event Source: USA Colorado"
 cqLon = 0.0
 cqLat = 0.0
 cqMag = 0.0
@@ -64,7 +63,7 @@ def repaintMap():
 	displayManager.displayNumberOfEvents(eventDB.numberOfEvents())
 
 	# Display EQ location
-	displayManager.displayLocation(cqLocation_long, cqMag)
+	displayManager.displayLocation(cqLocation, cqMag)
 
 	# Display all of the EQ events in the DB
 	count = eventDB.numberOfEvents()
@@ -93,7 +92,6 @@ def main():
 	global ftForBlink
 	global cqID
 	global cqLocation
-	global cqLocation_long
 	global cqLon
 	global cqLat
 	global cqMag
@@ -201,10 +199,4 @@ def main():
 # Earthquake Map Program Entry Point
 if __name__ == '__main__':
 	main()
-
-
-
-
-
-
-
+	
