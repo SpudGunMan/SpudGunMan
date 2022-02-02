@@ -1,5 +1,7 @@
 ![EarthQuakeMap](logo.jpg)
 
+![EarthQuakeMapDisplay](display.jpg)
+
 # About
 This is a Earthquake Map Display for Raspberrypi Attached screen
 
