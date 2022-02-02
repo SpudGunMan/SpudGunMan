@@ -203,7 +203,9 @@ class DisplayManager:
 
 	# Display magnitude
 	def displayMagnitude(self, mag):
+		self.setTextColor(self.colorFromMag(mag))
 		self.drawCenteredText(self.topTextRow, "Mag: " + str(mag))
+		self.setTextColor(self.white)
 
 	# Display depth
 	def displayDepth(self, depth):
@@ -224,11 +226,14 @@ class DisplayManager:
 
 	# Display location with color from magnitude
 	def displayLocation(self, location, mag):
-		self.setTextColor(self.colorFromMag(mag))
-		self.drawCenteredText(self.bottomTextRow, location)
-		self.setTextColor(self.white)
-		self.setTextSize(40)
-		return True
+		try:
+			self.setTextColor(self.colorFromMag(mag))
+			self.drawCenteredText(self.bottomTextRow, location)
+			self.setTextColor(self.white)
+			return True
+		except:
+			print(location)
+			return False
 
 	# Display title page
 	def displayTitlePage(self):

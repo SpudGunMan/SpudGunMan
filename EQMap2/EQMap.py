@@ -32,7 +32,7 @@ ftForTitlePageDisplay = 0
 
 # Current quake data
 cqID  = "27"
-cqLocation = "ColoSpgs"
+cqLocation = "waiting..."
 cqLon = 0.0
 cqLat = 0.0
 cqMag = 0.0
@@ -59,11 +59,11 @@ def repaintMap():
 	# Display EQ depth
 	displayManager.displayDepth(cqDepth)
 
-	# Display number of EQ events
-	displayManager.displayNumberOfEvents(eventDB.numberOfEvents())
-
 	# Display EQ location
 	displayManager.displayLocation(cqLocation, cqMag)
+
+	# Display number of EQ events
+	displayManager.displayNumberOfEvents(eventDB.numberOfEvents())
 
 	# Display all of the EQ events in the DB
 	count = eventDB.numberOfEvents()
@@ -160,7 +160,7 @@ def main():
 				# Determine if we have seen this event before
 				# If so ignor it
 				if cqID != eqGatherer.getEventID():
-					print("New Event")
+					#print("New Event")
 					# Extract the EQ data
 					cqLocation = eqGatherer.getLocation()
 					cqLon = eqGatherer.getLon()
@@ -199,4 +199,3 @@ def main():
 # Earthquake Map Program Entry Point
 if __name__ == '__main__':
 	main()
-	
