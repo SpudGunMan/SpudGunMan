@@ -52,7 +52,7 @@ class DisplayManager:
 		screenHeight = self.screenHeight
 
 		# Read the map into memory
-		self.mapImage = pygame.image.load('images/eqm800.bmp')
+		self.mapImage = pygame.image.load('maps/eqm800_shaded.bmp')
 
 		# Get its bounding box
 		self.mapImageRect = self.mapImage.get_rect()
