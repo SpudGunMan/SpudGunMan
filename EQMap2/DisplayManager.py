@@ -201,9 +201,12 @@ class DisplayManager:
 			elif event.type == pygame.KEYUP:
 				return timeNow
 
-	# Display magnitude
+	# Display magnitude with color from magnitude
 	def displayMagnitude(self, mag):
+		self.setTextColor(self.colorFromMag(mag))
 		self.drawCenteredText(self.topTextRow, "Mag: " + str(mag))
+		self.setTextColor(self.white)
+		return True
 
 	# Display depth
 	def displayDepth(self, depth):
@@ -219,15 +222,16 @@ class DisplayManager:
 		self.setTextColor(self.blue)
 		#self.setTextSize(20)
 		#self.drawCenteredText(self.eventsTextRow, str(num) + " events since: " + eventTimeString)
-		self.drawCenteredText(self.bottomTextRow, str(num) + " reported event since: " + eventTimeString)
+		self.drawCenteredText(self.bottomTextRow, str(num) + " reported event(s) since: " + eventTimeString)
 		self.setTextColor(self.white)
 		self.setTextSize(40)
 		return True
 
-	# Display location with color from magnitude
+	# Display location
 	def displayLocation(self, location, mag):
-		self.setTextColor(self.colorFromMag(mag))
+		#self.setTextColor(self.colorFromMag(mag))
 		#self.drawCenteredText(self.bottomTextRow, location)
+		self.setTextColor(self.blue)
 		self.setTextSize(20)
 		self.drawCenteredText(self.eventsTextRow, location)
 		self.setTextColor(self.white)
