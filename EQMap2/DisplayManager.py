@@ -29,6 +29,7 @@ class DisplayManager:
 		self.yellow = (255, 255, 0)
 		self.green  = (0, 255, 0)
 		self.blue  = (0, 0, 255)
+		self.eventTimeString = "loading..."
 
 		pygame.init()
 
@@ -217,11 +218,13 @@ class DisplayManager:
 	# Display number of events in DB
 	def displayNumberOfEvents(self, num):
 		eventPull = datetime.now()
-		eventTimeString = eventPull.strftime("%-I:%M %P")
+		eventTimeStringLong = eventPull.strftime("%-I:%M %P %d/%m/%y")
+		self.eventTimeString = eventPull.strftime("%-I:%M %P")
 		self.setTextColor(self.blue)
 		self.setTextSize(20)
-		self.drawCenteredText(self.eventsTextRow, str(num) + " event(s) since: " + eventTimeString)
+		self.drawCenteredText(self.eventsTextRow, str(num) + " total events drawn at " + eventTimeStringLong)
 		self.setTextSize(40)
+		self.setTextColor(self.white)
 		return True
 
 	# Display location with color from magnitude
@@ -234,6 +237,20 @@ class DisplayManager:
 		except:
 			print(location)
 			return False
+
+	def displayEventLong(self, location, mag, depth):
+		self.setTextColor(self.colorFromMag(mag))
+		# Convert kilometers to miles, otherwise change to just pront depth TODO add menu option
+		miles = depth / 1.609344
+		milesStr = "@{d:.2f}mi"
+		location = location[:24] #truncate long names centering from pygame will just overlap badly
+		self.drawCenteredText(self.bottomTextRow,location + (" Mag:" + str(mag)) + (milesStr.format(d = miles)))
+		self.setTextColor(self.white)
+	
+	def displayDBStats(self, mag, depth, largestmag):
+		#pygame.draw.rect(self.screen,self.black,(270,0,(self.screenWidth - 1),35))
+		self.drawRightJustifiedText(self.topTextRow, "LastEQ:" + self.eventTimeString + " High:" + largestmag)
+		return True
 
 	# Display title page
 	def displayTitlePage(self):
@@ -278,3 +295,4 @@ while True:
 
 	time.sleep(20)
 """
+

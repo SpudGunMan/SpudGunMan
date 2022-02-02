@@ -1,13 +1,13 @@
 ![EarthQuakeMap](logo.jpg)
 
 # About
-This is a Earthquake Map Display for Raspberrypi bullseye and Attached screen. you can download *alpha* not currently its own repository till more testing done
+This is a Earthquake Map Display for Raspberrypi Attached screen
 
 This fork adds additoional features
 - command line output
 - working clock
-- fullscreen mode
-- interactive you can now escape out
+- fullscreen mode, escape or q to exit
+- new data base display methods!
 - more features soon... open issues/requests
 
 # Installation
@@ -18,15 +18,6 @@ cd ~
 git clone
 python3 EQMap.py
 ```
-
-#### Steps to disable Screen Blanking or Sleeping with the Raspberry Pi
-
-1. In Raspberry Pi Configuration Window, click on Display Tab.
-1. Look for the Screen Blanking row, click Disable . Then click OK .
-1. A window will open and asks if you like to reboot the Raspberry Pi. Click Yes .
-1. Raspberry Pi will reboot.
-
-
 ## Hardware:
 ### Tested
 * Raspberry Pi3

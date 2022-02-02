@@ -32,7 +32,7 @@ ftForTitlePageDisplay = 0
 
 # Current quake data
 cqID  = "27"
-cqLocation = "waiting..."
+cqLocation = "loading..."
 cqLon = 0.0
 cqLat = 0.0
 cqMag = 0.0
@@ -54,13 +54,16 @@ def repaintMap():
 	displayManager.displayCurrentTime()
 
 	# Display EQ magnitude
-	displayManager.displayMagnitude(cqMag)
+	#displayManager.displayMagnitude(cqMag)
+	#replaced with below displayDBStats
 
 	# Display EQ depth
-	displayManager.displayDepth(cqDepth)
+	#displayManager.displayDepth(cqDepth)
+	displayManager.displayDBStats(cqMag, cqDepth, str(eventDB.getLargestEvent()))
 
 	# Display EQ location
-	displayManager.displayLocation(cqLocation, cqMag)
+	#displayManager.displayLocation(cqLocation, cqMag)
+	displayManager.displayEventLong(cqLocation, cqMag, cqDepth)
 
 	# Display number of EQ events
 	displayManager.displayNumberOfEvents(eventDB.numberOfEvents())
@@ -175,7 +178,7 @@ def main():
 					cqID = eqGatherer.getEventID()
 
 					# Display the new EQ data
-					repaintMap();
+					repaintMap()
 
 				ftForAcquisition = millis() + ACQUISITION_TIME_MS
 
@@ -199,3 +202,4 @@ def main():
 # Earthquake Map Program Entry Point
 if __name__ == '__main__':
 	main()
+	

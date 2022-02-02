@@ -1,6 +1,5 @@
 """
 This code handles a simple database of earthquake events in a list
-
 Concept, Design and Implementation by: Craig A. Lindley
 """
 from collections import deque
@@ -36,6 +35,18 @@ class EventDB:
 	# Retrieve an event by index
 	def getEvent(self, index):
 		return self.EQEventQueue[index]
+
+	# Retrieve largest event
+	def getLargestEvent(self):
+		EQlargest = [] #list for mag of events in EventQ
+		max_value = 0
+		max_index = 0
+		
+		for event in self.EQEventQueue:
+			EQlargest.append(event[2])
+			max_value = max(EQlargest)
+			
+		return max_value
 
 # Create instance of database
 eventDB = EventDB()
@@ -74,4 +85,6 @@ lon, lat, mag = eventDB.getEvent(1)
 print("lon: ", lon, "lat: ", lat, "mag: ", mag)
 
 print(eventDB.numberOfEvents())
+
+print(eventDB.getLargestEvent())
 """
