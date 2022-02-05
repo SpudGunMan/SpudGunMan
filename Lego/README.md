@@ -11,7 +11,7 @@ SpudGunMan Lego Hacking Spike and 51515 Mindstorms Lego Hubs
   - tool to gather and compile lego micropython tools and libaries back to a OEM hub after LEGO firmware update. Compiler and installer forked from the mpy
   - more modular installer for any project, 
   
-    items in your project directory are safe unless content refereshed this allows builk depoyment of bricks for class etc. For quicker development edit the legoHub_install_path(in)base_script.py
+    items in your project directory are safe unless content refereshed this allows builk depoyment of bricks for class etc. For quicker development edit the legoHub_install_path variable in base_script.py
 
 /lego/CityHub/Train/[SmartCityTrain.py](https://github.com/SpudGunMan/SpudGunMan/blob/main/Lego/CityHub/Train/Smart-CityTrain.py) 
 

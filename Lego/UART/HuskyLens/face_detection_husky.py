@@ -2,7 +2,7 @@ from hub import button
 
 # imports from Anton's Mindstorms LEGO Huskylens library
 # https://github.com/antonvh/LEGO-HuskyLenslib
-from projects.pyhuskylens import (HuskyLens, 
+from pyhuskylens import (HuskyLens, 
 ALGORITHM_FACE_RECOGNITION, 
 ALGORITHM_FACE_RECOGNITION,
 ALGORITHM_OBJECT_TRACKING,

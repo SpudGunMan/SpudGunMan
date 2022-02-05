@@ -1,4 +1,6 @@
 #!/bin/bash
+# Pi2Hub is for conecting via Bluetooth to Lego Hub, tested with BlackberryDebian
+# this will redirect /bind a port using CLI commands for automation or projects
 #
 # pi2hub.sh
 # use 'bluetoothctl scan on' to hunt for your device MAC
