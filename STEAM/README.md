@@ -27,19 +27,19 @@ Virtual machines and spinning up copies of windows server etc
 ## Shopping Ideas
 The following is a little list of boutique suppliers of toys and stuff
 
-https://www.mindware.orientaltrading.com
-https://www.fatbraintoys.com/index.cfm
-https://www.teachersource.com
-https://www.smarterkids.com
-https://store.flitetest.com/stem/ - Aircraft related learning
-https://shop.elenco.com/consumers/brands/snap-circuits.html - Early electronics look for them used!
+* https://www.mindware.orientaltrading.com
+* https://www.fatbraintoys.com/index.cfm
+* https://www.teachersource.com
+* https://www.smarterkids.com
+* https://store.flitetest.com/stem/ - Aircraft related learning
+* https://shop.elenco.com/consumers/brands/snap-circuits.html - Early electronics look for them used!
 
 I also like lakeshore in bellevue/factoria
-https://www.lakeshorelearning.com
+* https://www.lakeshorelearning.com
 In Wenatchee there is https://hookedontoys.com their buyers are very good at keeping educational products in stock
 
 Just got these the other day I think they are getting common with people for helping with ideas to draw or write about, cheap and easy fun
-https://www.storycubes.com/en/games/rorys-story-cubes-voyages/
+* https://www.storycubes.com/en/games/rorys-story-cubes-voyages/
 
 
 If you ever need ideas on how to have STEAM/STEM lesson ideas happy to help Comment to Github or contact on KellyKeeton.com
