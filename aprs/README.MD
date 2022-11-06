@@ -25,7 +25,7 @@ I have found issues with the EQNS, I cant send it to myself (If using a SSID it 
 More on EQNS on page 70 of the [APRS whitepapers](http://www.aprs.org/doc/APRS101.PDF)
 
 # Hardware modifications
-![mtrak.jpeg](microtrak)
+![mtrak](mtrak.jpeg)
 the “SW” and “T” markings are reversed. “T” is the secondary configuration switch input, and “SW” is the analog telemetry input photo here shows functioning connections to the hardware. jumpers used to extend the telemetry port externally when used.
 
  - Switch for profiles
