@@ -4,6 +4,7 @@ The [Manual](MicroTrak_RTG_FA_Manual_v1.8-2.pdf) describes the hardware and firm
 
 The [Config Manual](TinyTrak3_Config_Manual_v1.4.pdf) is also mandatory to review as it has lots of nerdy bits.
 A difference my shipped device has the following autoTXD changes as defaults
+
 ![timing](timing.jpg)
 
 ## Quick Setup
