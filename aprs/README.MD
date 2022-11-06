@@ -49,7 +49,7 @@ the “SW” and “T” markings are reversed. “T” is the secondary configu
     - Change channels
       - 1 supply voltage, sampled from PIC RB4/11 "pin7"
       - 2 LM-335 temp sampled from PIC RB2/9 "pin8"
-      - 3 "T" PCB pin-header, sampled from PIC RB5/12 "pin11"
+      - 3 "T" PCB pin-header, sampled from PIC ~~~RB5/12~~~ RB6/13 "pin11"
     - Definition Rate 0 assume is off??
 
 ### The Telemetry Definition Text
