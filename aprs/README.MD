@@ -42,13 +42,14 @@ the “SW” and “T” markings are reversed. “T” is the secondary configu
  - UART enable
    - Allow TTL Serial, enable to have easy interface with raspberry pi GPIO or similar.
  - Switch for profiles, make a 2nd one..
+   - see photo for switch mounting idea
  - 3rd Telemetry input
     - make sure to click edit telemetry and you can
     - Set up auto telemetry reporting (aka not use the findu.cgi over the air) by clicking the edit telemetry button
     - Change channels
-      - 1 supply voltage, sampled from PIC pin 7
-      - 2 LM-335 temp sampled from PIC pin 8
-      - 3 "T" PCB pin-header, sampled from PIC pin 11
+      - 1 supply voltage, sampled from PIC RB4/11
+      - 2 LM-335 temp sampled from PIC RB2/9
+      - 3 "T" PCB pin-header, sampled from PIC RB5/12
     - Definition Rate 0 assume is off??
 
 ### The Telemetry Definition Text
@@ -71,11 +72,11 @@ Following is for temp return in F added the additional sensor into battery2 as v
  - UNIT line gives a textual unit to describe each channel
  - EQNS line gives a A B, and C for each Analog channel (we have 3) 
    - EQNS. `Ax^2,Bx,C`  **,**  `Ax^2,Bx,C`   **,**  `Ax^2,Bx,C`
-   - EQNS. `Volts`  **,**  `Deg`   **,**  `Chan3-Pin11`
+   - EQNS. `Volts`  **,**  `Deg`   **,**  `Chan3-AUX`
  - BITS line describes the digital telemetry (not used **but can we feed into PIC PIN-11**), followed by the project name for the telemetry or operation or kit
 
 ### The EQNS voltage `0,0.0293,0` is calculated in the following way. 
-- Since the supply voltage is fed through a 10K & 2K voltage divider, the voltage presented to PIC pin 7
+- Since the supply voltage is fed through a 10K & 2K voltage divider, the voltage presented to PIC
   - Input supply voltage (commonly 12v) passes the voltage divider 2K/(10K+2K) or 1/6 `0.0293` the supply voltage. 
   - The PIC analog read value is a number between 0 (for 0 volts) and 1023 resolution (for 5 volts PIC reference).
   - So the supply voltage can be found my multiplying the reported number, by 5V/1023*6 or 0.0293. 
@@ -95,7 +96,7 @@ APRS.org document snip with red text overlay showing this device values.
 
 # Reference material
 T Packets https://aprs.fi/telemetry/a/N0CALL
-
+[PIC41391D](41391D.pdf)
 
 ## Findu quicklinks for scripting into automation
  - POST into www.findu.com/cgi-bin/sendmsg.cgi?fromcall=N0CALL&tocall=N0CALL&msg=EQNS.0%2C0.0293%2C0%2C0%2C0.879%2C-459.67
