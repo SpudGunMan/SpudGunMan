@@ -47,9 +47,9 @@ the “SW” and “T” markings are reversed. “T” is the secondary configu
     - make sure to click edit telemetry and you can
     - Set up auto telemetry reporting (aka not use the findu.cgi over the air) by clicking the edit telemetry button
     - Change channels
-      - 1 supply voltage, sampled from PIC RB4/11
-      - 2 LM-335 temp sampled from PIC RB2/9
-      - 3 "T" PCB pin-header, sampled from PIC RB5/12
+      - 1 supply voltage, sampled from PIC RB4/11 "pin7"
+      - 2 LM-335 temp sampled from PIC RB2/9 "pin8"
+      - 3 "T" PCB pin-header, sampled from PIC RB5/12 "pin11"
     - Definition Rate 0 assume is off??
 
 ### The Telemetry Definition Text
@@ -96,6 +96,7 @@ APRS.org document snip with red text overlay showing this device values.
 
 # Reference material
 T Packets https://aprs.fi/telemetry/a/N0CALL
+
 [PIC41391D](41391D.pdf)
 
 ## Findu quicklinks for scripting into automation
