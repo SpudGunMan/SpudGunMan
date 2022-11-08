@@ -5,8 +5,22 @@ https://www.inovato.com
  - FAQ https://forum.inovato.com/frequently-asked-questions-919118
  - HAM-PI Image http://hampi.sourceforge.net/
 
- ### USB
- - USB 2.0 port is the one on the back If you use a 3.0 hub, connect it to the side port.
 
 ![top](top.jpeg)
 ![back](back.jpeg)
+
+ ### USB
+ - USB 2.0 port is the one on the back If you use a 3.0 hub, connect it to the side port.
+
+ ### CPU
+- Allwinner H6 4 core ARM Cortex-A53 CPU cores @ 1.7 GHz
+
+### Storage
+ - 16GB eMMC
+ - microSD card reader
+
+### Wifi
+- WiFi 4 (2.4 GHz)
+   - Plus has a USB dongle to get extra wifi
+### Power
+- 5V/2A
