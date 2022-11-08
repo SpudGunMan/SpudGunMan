@@ -5,5 +5,8 @@ https://www.inovato.com
  - FAQ https://forum.inovato.com/frequently-asked-questions-919118
  - HAM-PI Image http://hampi.sourceforge.net/
 
+ ### USB
+ - USB 2.0 port is the one on the back If you use a 3.0 hub, connect it to the side port.
+
 ![top](top.jpeg)
 ![back](back.jpeg)
