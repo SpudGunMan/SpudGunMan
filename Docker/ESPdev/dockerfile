@@ -1,0 +1,36 @@
+#docker build -t espdev -f dockerfile .
+FROM ubuntu:latest
+ENV ARMBINURL="https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2?revision=ca0cbf9c-9de2-491c-ac48-898b5bbc0443&hash=3710A129B3F3955AFDC7A74934A611E6C7F218AE"
+ENV ESPIDF="https://github.com/espressif/esp-idf.git"
+
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+#Fetch dependencies from APT
+RUN apt-get update && \
+	apt-get install -y tar wget dfu-util bzip2 curl python3 uncrustify \
+	build-essential python3-dev\
+	python3-serial && \
+	apt-get -qy autoremove
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
+#Grab the GNU ARM toolchain from arm.com
+#Then extract contents to /opt/build/armbin/
+RUN mkdir /opt/build && cd /opt/build && \
+	wget -O gcc-arm-none-eabi $ARMBINURL && \
+	mkdir armbin && \
+	tar --strip=1 -xjvf gcc-arm-none-eabi -C armbin
+
+#Set environment variable so compiler knows where the toolchain lives
+ENV PATH=$PATH:/opt/build/armbin/bin
+ENV CROSS_COMPILE=/optbuild/armbin/bin
+
+RUN cd /opt/build && \
+    git clone -b v4.0.2 --recursive $ESPIDF && \
+    cd esp-idf && \
+    git submodule update --init --recursive \
+    ./install.sh && \
+    source export.sh 
+    

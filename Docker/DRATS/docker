@@ -1,0 +1,27 @@
+#Download base image.
+#The ubuntu:20.04 tag points to the "20.04 LTS"
+FROM ubuntu:20.04
+#FROM python:3 #this could be a better image to use lightweight
+
+#copy git repo into 
+COPY ./ /D-rats
+
+#Create volume for presentation to use
+VOLUME /D-rats
+#WORKDIR /D-rats
+
+#Fetch dependencies from APT
+RUN apt-get update && \
+        apt-get install -y tar wget cmake bzip2 curl python3 \
+        python3-pip python3-dev python-glade2 python3-libxml2 python3-libxslt1 \
+        python3-lxml python3-feedparser python3-gtk2v python3-suds && \
+        apt-get -qy autoremove
+
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir Pillow geopy pycairo PyGObject pyserial simplejson feedparser libxml2 flask gevent gevent-socketio greenlet
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
+CMD cd /D-rats && python3 d-rats.py
+#CMD cd /D-rats && [ "python", "d-rats.py" ]
