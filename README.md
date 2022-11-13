@@ -6,10 +6,10 @@ This is a landing ground for various projects from KellyKeeton.com I would not r
 
 Micro-Trak APRS
 - https://github.com/SpudGunMan/Micro-TrakRTGFA-mods
+- https://github.com/SpudGunMan/MicroTrak-MTT4B-mods
 
 
-
-Working on a port of this project I am calling [bapi](https://github.com/SpudGunMan/bapi), if you would like to test it contact me still in development.
+Working on a port of this project I am calling [bapi](https://github.com/SpudGunMan/bapi)
 - Fork of this project [Pi-Build](https://github.com/SpudGunMan/pi-build/tree/alpha)
 - https://github.com/SpudGunMan/SpudGunMan/tree/main/N3450-devices
 - https://github.com/SpudGunMan/SpudGunMan/tree/main/quadra
