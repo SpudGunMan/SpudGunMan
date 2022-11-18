@@ -4,10 +4,6 @@ This is a landing ground for various projects from KellyKeeton.com aka Kelly Kee
 
 ![NOR7](etc/pic/NOR7_s.jpg)
 
-What this is: A place to speak freely, because speech isnt free.
-
-What this isn't: I am not here to attack or cause any strife, I have also been classified, labeled, and bad things have happened, I have lost much. I try, and share ideas otherwise destroyed elsewhere. Any confusion or damage is not intended apologies to you; if you are looking.
-
 I would not recomend cloning this repro, rather select from below.
 
 ## Currently active: 
