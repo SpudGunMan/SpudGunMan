@@ -8,15 +8,13 @@ I would not recomend cloning this repro, rather select from below.
 
 ## Currently active: 
 
-Micro-Trak APRS
-- https://github.com/SpudGunMan/Micro-TrakRTGFA-mods
-- https://github.com/SpudGunMan/MicroTrak-MTT4B-mods
-
 Working on a port of [Pi-Build](https://github.com/SpudGunMan/pi-build/tree/alpha) project I am calling [bapi](https://github.com/SpudGunMan/bapi)
 - https://github.com/SpudGunMan/SpudGunMan/tree/main/N3450-devices
 - https://github.com/SpudGunMan/SpudGunMan/tree/main/quadra
 
 ## Archive or back burner
+- https://github.com/SpudGunMan/Micro-TrakRTGFA-mods
+- https://github.com/SpudGunMan/MicroTrak-MTT4B-mods
 - [SteppIR](https://github.com/SpudGunMan/steppir-mods) Mods
 - [Arcade](/arcade/README.md) projects folder
 - [Lego](Lego/README.md) projects folder
