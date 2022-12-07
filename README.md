@@ -13,6 +13,8 @@ Working on a port of [Pi-Build](https://github.com/SpudGunMan/pi-build/tree/alph
 - https://github.com/SpudGunMan/SpudGunMan/tree/main/quadra
 
 ## Archive or back burner
+- https://github.com/SpudGunMan/EPIC-PWRgate-mods
+- https://github.com/SpudGunMan/TT4-mods
 - https://github.com/SpudGunMan/Micro-TrakRTGFA-mods
 - https://github.com/SpudGunMan/MicroTrak-MTT4B-mods
 - [SteppIR](https://github.com/SpudGunMan/steppir-mods) Mods
