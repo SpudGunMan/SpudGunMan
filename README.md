@@ -9,10 +9,15 @@ I would not recomend cloning this repro, rather select from below.
 ## Currently active: 
 
 Working on a port of [Pi-Build](https://github.com/SpudGunMan/pi-build/tree/alpha) project I am calling [bapi](https://github.com/SpudGunMan/bapi)
-- https://github.com/SpudGunMan/SpudGunMan/tree/main/N3450-devices
-- https://github.com/SpudGunMan/SpudGunMan/tree/main/quadra
+
+
+Set your Grid while in the field with gpsd
+- https://github.com/SpudGunMan/gpsd2ham
+
 
 ## Archive or back burner
+- https://github.com/SpudGunMan/SpudGunMan/tree/main/N3450-devices
+- https://github.com/SpudGunMan/SpudGunMan/tree/main/quadra
 - https://github.com/SpudGunMan/EPIC-PWRgate-mods
 - https://github.com/SpudGunMan/TT4-mods
 - https://github.com/SpudGunMan/Micro-TrakRTGFA-mods
