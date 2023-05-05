@@ -47,9 +47,12 @@ if [ -f ~/.pota-lock ]; then
     select yn in "Yes" "No"; do
         case $yn in
             Yes)
-                mv $WSJTLogFolder/wsjt_log.adi $ParkLogFolder
-                mv $WSJTLogFolder/wsjt.log $ParkLogFolder
-                echo "Moved WSJT logs to $ParkLogFolder"
+                if [ -d $WSJTLogFolder ]; then
+                    mv $WSJTLogFolder/wsjt_log.adi $ParkLogFolder
+                    mv $WSJTLogFolder/wsjt.log $ParkLogFolder
+                    echo "Moved WSJT logs to $ParkLogFolder"
+                fi
+
                 rm ~/.pota-lock
                 echo "Lockfile removed"
                 echo "73.."
@@ -114,8 +117,8 @@ fi
 if [ ! -d $logFolder ]; then
     mkdir -p $logFolder
 else
-    mkdir -p $logFolder/$park-$date
-    echo "Created log folder: $park-$date in $logFolder"
+    mkdir -p $logFolder/$parkID-$park-$date
+    echo "Created log folder: $parkID-$park-$date in $logFolder"
 fi
 
 #write a lockfile with current progress
@@ -123,9 +126,9 @@ echo "$logFolder/$park-$date$seperator$park$seperator$parkID" > ~/.pota-lock
 
 #optionally launch grid2ham.sh
 if [ $LaunchGPSD2HAM == "true" ]; then
-    if [ -f ~/gpsd2ham/grid2ham.sh ]; then
-        echo "Launching grid2ham.sh"
-        ~/gpsd2ham/grid2ham.sh/grid2ham.sh
+    if [ -f ~/gpsd2ham/grid2app.sh ]; then
+        echo "Launching grid2app.sh"
+        ~/gpsd2ham/grid2ham.sh/grid2app.sh
     fi
 fi
 echo "Happy Activating, re-run this script to wrap up your activation."
