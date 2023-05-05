@@ -13,6 +13,8 @@ Working on a port of [Pi-Build](https://github.com/SpudGunMan/pi-build/tree/alph
 
 Set your Grid while in the field with gpsd
 - https://github.com/SpudGunMan/gpsd2ham
+- https://github.com/SpudGunMan/SpudGunMan/tree/main/pota-scripts
+  - Park Activation Helper
 
 
 ## Archive or back burner
