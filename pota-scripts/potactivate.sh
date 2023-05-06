@@ -124,10 +124,10 @@ fi
 # Build log folders for archive
 if [ ! -d $logFolder ]; then
     mkdir -p $logFolder
-else
-    mkdir -p $logFolder/$parkID-$park-$date
-    echo "Created log folder: $parkID-$park-$date in $logFolder"
 fi
+
+mkdir -p $logFolder/$parkID-$park-$date
+echo "Created log folder: $parkID-$park-$date in $logFolder"
 
 #write a lockfile with current progress
 echo "$logFolder/$park-$date$seperator$park$seperator$parkID" > ~/.pota-lock
