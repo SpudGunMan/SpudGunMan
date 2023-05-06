@@ -10,6 +10,14 @@
 # It will also help you wrap up your activation by moving WSJT logs to the log folder
 # Allowing for clean uploads to the POTA website
 
+# This script is designed to be used with the gpsd2ham.sh script
+# It will launch the grid2app.sh script if it is found
+# https://github.com/SpudGunMan/gpsd2ham
+# also check out bapi for loading WSJT and GPS Tools!
+# https://github.com/SpudGunMan/bapi
+
+# This script is designed to be used with WSJT-X to clean log directory to the log folder
+
 
 # Initialize variables
 logFolder="$HOME/Documents/log_archive"
