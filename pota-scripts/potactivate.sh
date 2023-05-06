@@ -98,8 +98,11 @@ else
     select opt in $(cat ~/.pota-park) NEW*PARK QUIT; do
         case $opt in
             NEW*PARK)
+                echo "Please enter the park details.."
                 read -p "Enter the park details(Usefull Name): " parkID
-                read -p "Enter the park designator(ie. K-3180): " park
+                read -p "Enter the park designator(ie. K-3180): " parkRAW
+                # Convert to uppercase
+                park=$(echo $parkRAW | tr '[:lower:]' '[:upper:]')
                 echo "$park$seperator$parkID" >> ~/.pota-park
                 break
                 ;;
