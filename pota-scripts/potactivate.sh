@@ -10,18 +10,11 @@
 # It will also help you wrap up your activation by moving WSJT logs to the log folder
 # Allowing for clean uploads to the POTA website
 
-# This script is designed to be used with the gpsd2ham.sh script
-# It will launch the grid2app.sh script if it is found
-# https://github.com/SpudGunMan/gpsd2ham
-# also check out bapi for loading WSJT and GPS Tools!
-# https://github.com/SpudGunMan/bapi
-
-# This script is designed to be used with WSJT-X to clean log directory to the log folder
-
 
 # Initialize variables
-logFolder="$HOME/Documents/log_archive"
-WSJTLogFolder="$HOME/.local/share/WSJT-X"
+cd "$(dirname "$0")"
+logFolder=~/Documents/log_archive/
+WSJTLogFolder=~/.local/share/WSJT-X/
 date=$(date +%Y%m%d)
 seperator=":"
 LaunchGPSD2HAM="true"
@@ -52,13 +45,15 @@ if [ -f ~/.pota-lock ]; then
     echo "Lockfile found, wrap up $MyPark, $MyParkID"
     echo "Select 1 Yes or 2 No"
 
-    select yn in "Yes" "No"; do
+    select yn in "Yes-WrapUp" "No-Nevermind"; do
         case $yn in
-            Yes)
-                if [ -d $WSJTLogFolder ]; then
-                    mv $WSJTLogFolder/wsjt_log.adi $ParkLogFolder
-                    mv $WSJTLogFolder/wsjt.log $ParkLogFolder
+            Yes*)
+                if [ -d "$WSJTLogFolder" ]; then
+                    mv "$WSJTLogFolder"wsjt_log.adi "$ParkLogFolder"
+                    mv "$WSJTLogFolder"wsjt.log "$ParkLogFolder"
                     echo "Moved WSJT logs to $ParkLogFolder"
+                else
+                    echo "error moving $WSJTLogFolder logs $ParkLogFolder"
                 fi
 
                 rm ~/.pota-lock
@@ -66,7 +61,7 @@ if [ -f ~/.pota-lock ]; then
                 echo "73.."
                 exit 0
                 ;;
-            No)
+            No*)
                 echo "Happy Activating 73.."
                 exit 0
                 ;;
@@ -88,21 +83,18 @@ fi
 # Initialize park
 if [ ! -f ~/.pota-park ]; then
     echo "Please enter the park details.."
-    read -p "Enter the park details(Usefull Name): " parkID
+    read -p "Enter the park details(UsefullName): " parkID
     read -p "Enter the park designator(ie. K-3180): " parkRAW
     # Convert to uppercase
-    park=$(echo $parkRAW | tr '[:lower:]' '[:upper:]')
+    park=$(echo "$parkRAW" | sed 's/ //g' | tr '[:lower:]' '[:upper:]')
     echo "$park$seperator$parkID" >> ~/.pota-park
 else
     echo "Select a park by entering the number or create a new park by selecting # NEW*PARK"
     select opt in $(cat ~/.pota-park) NEW*PARK QUIT; do
         case $opt in
             NEW*PARK)
-                echo "Please enter the park details.."
-                read -p "Enter the park details(Usefull Name): " parkID
-                read -p "Enter the park designator(ie. K-3180): " parkRAW
-                # Convert to uppercase
-                park=$(echo $parkRAW | tr '[:lower:]' '[:upper:]')
+                read -p "Enter the park details(UsefullName) no space: " parkID
+                read -p "Enter the park designator(ie. K-3180): " park
                 echo "$park$seperator$parkID" >> ~/.pota-park
                 break
                 ;;
@@ -125,21 +117,21 @@ else
 fi
 
 # Build log folders for archive
-if [ ! -d $logFolder ]; then
-    mkdir -p $logFolder
+if [ -d $logFolder ]; then
+    mkdir -p "$logFolder$parkID"-"$park"-"$date"
+    echo "Created log folder: $parkID-$park-$date in $logFolder"
+else
+    echo "cant make log folder: $parkID-$park-$date in $logFolder"
 fi
 
-mkdir -p $logFolder/$parkID-$park-$date
-echo "Created log folder: $parkID-$park-$date in $logFolder"
-
 #write a lockfile with current progress
-echo "$logFolder/$park-$date$seperator$park$seperator$parkID" > ~/.pota-lock
+echo "$logFolder$park-$date/$seperator$park$seperator$parkID" > ~/.pota-lock
 
 #optionally launch grid2ham.sh
 if [ $LaunchGPSD2HAM == "true" ]; then
-    if [ -f ~/gpsd2ham/grid2app.sh ]; then
-        echo "Launching grid2app.sh"
-        ~/gpsd2ham/grid2ham.sh/grid2app.sh
+    if [ -f grid2app.sh ]; then
+        echo "Attempting gpsd2grid.py acuire, will auto-exit in 10 seconds"
+        gps=$(timeout 10s python3 gpsd2grid.py)
     fi
 fi
 echo "Happy Activating, re-run this script to wrap up your activation."
