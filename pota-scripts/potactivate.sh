@@ -33,7 +33,7 @@ if [ -f ~/.pota-lock ]; then
     MyParkID=$(cat ~/.pota-lock | cut -d$seperator -f3)
 
     #Guess Activation count for WSJT
-    if [ -f "$WSJTLogFolder"wsjt.log ]; then
+    if [ -f $WSJTLogFolder ]; then
         #count line numbers of log
         count=$(wc -l "$WSJTLogFolder"wsjt.log | cut -d' ' -f1)
         if count > 10; then
@@ -150,7 +150,7 @@ else
 fi
 
 #write a lockfile with current progress
-echo "$logFolder$park-$date/$seperator$park$seperator$parkID" > ~/.pota-lock
+echo "$logFolder$parkID-$park-$date/$seperator$park$seperator$parkID" > ~/.pota-lock
 echo "Lockfile created with current progress in ~/.pota-lock"
 
 #optionally launch grid2ham.sh
