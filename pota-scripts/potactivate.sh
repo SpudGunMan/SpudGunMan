@@ -3,7 +3,7 @@
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.1.0
+# Version 1.2.0
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
@@ -33,7 +33,7 @@ if [ -f ~/.pota-lock ]; then
     MyParkID=$(cat ~/.pota-lock | cut -d$seperator -f3)
 
     #Guess Activation count for WSJT
-    if [ -f $WSJTLogFolder ]; then
+    if [ -d $WSJTLogFolder ]; then
         #count line numbers of log
         count=$(wc -l "$WSJTLogFolder"wsjt.log | cut -d' ' -f1)
         if count > 10; then
