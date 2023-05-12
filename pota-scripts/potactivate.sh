@@ -142,14 +142,16 @@ fi
 
 #write a lockfile with current progress
 echo "$logFolder$park-$date/$seperator$park$seperator$parkID" > ~/.pota-lock
+echo "Lockfile created with current progress in ~/.pota-lock"
 
 #optionally launch grid2ham.sh
 if [ $LaunchGPSD2HAM == "true" ]; then
     if [ -f grid2app.sh ]; then
-        echo "Attempting gpsd2grid.py acuire, will auto-exit in 10 seconds"
-        gps=$(timeout 10s python3 grid2app.py)
+        echo "Attempting gpsd2grid acuire, will auto-exit in 10 seconds if not found or no gpsd data"
+        gps=$(timeout 10s python3 grid2app.sh)
     fi
 fi
 echo "Happy Activating, re-run this script to wrap up your activation."
+echo "73.."
 
 exit 0
