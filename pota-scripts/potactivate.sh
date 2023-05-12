@@ -162,9 +162,7 @@ if [ $LaunchGPSD2HAM == "true" ]; then
 fi
 
 #touch conky file to keep fresh
-if [ -f ~/.conkyrc ]; then
-    touch ~/.conkyrc
-fi
+touch ~/.conkyrc
 
 echo "Happy Activating, re-run potActivate script to wrap up your activation."
 echo "73.."
