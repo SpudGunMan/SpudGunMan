@@ -133,7 +133,7 @@ echo "$logFolder$park-$date/$seperator$park$seperator$parkID" > ~/.pota-lock
 if [ $LaunchGPSD2HAM == "true" ]; then
     if [ -f grid2app.sh ]; then
         echo "Attempting gpsd2grid.py acuire, will auto-exit in 10 seconds"
-        gps=$(timeout 10s python3 gpsd2grid.py)
+        gps=$(timeout 10s python3 gpsd2app.py)
     fi
 fi
 echo "Happy Activating, re-run this script to wrap up your activation."
