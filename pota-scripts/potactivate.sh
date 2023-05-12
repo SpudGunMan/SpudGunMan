@@ -94,6 +94,7 @@ if [ ! -f ~/.pota-park ]; then
     # Convert to uppercase
     parkDesignator=$(echo $parkDesignator | tr '[:lower:]' '[:upper:]')
     echo "$parkDesignator$seperator$parkID" >> ~/.pota-park
+    echo "Collected park: $parkDesignator, $parkID"
     #end function
 else
     echo "Select a park by entering the number or create a new park by selecting # NEW*PARK"
@@ -111,6 +112,7 @@ else
                     # Convert to uppercase
                     parkDesignator=$(echo $parkDesignator | tr '[:lower:]' '[:upper:]')
                     echo "$parkDesignator$seperator$parkID" >> ~/.pota-park
+                    echo "Collected park: $parkDesignator, $parkID"
                     #end function
                 break
                 ;;
