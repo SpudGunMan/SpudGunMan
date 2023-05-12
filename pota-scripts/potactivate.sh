@@ -84,20 +84,34 @@ fi
 
 # Initialize park
 if [ ! -f ~/.pota-park ]; then
+    #create park file (functionize this)
     echo "Please enter the park details.."
     read -p "Enter the park details(UsefullName): " parkID
-    read -p "Enter the park designator(ie. K-3180): " parkRAW
+    #remove spaces
+    parkID=$(echo $parkID | tr -d '[:space:]')
+
+    read -p "Enter the park designator(ie. K-3180): " parkDesignator
     # Convert to uppercase
-    park=$(echo "$parkRAW" | sed 's/ //g' | tr '[:lower:]' '[:upper:]')
-    echo "$park$seperator$parkID" >> ~/.pota-park
+    parkDesignator=$(echo $parkDesignator | tr '[:lower:]' '[:upper:]')
+    echo "$parkDesignator$seperator$parkID" >> ~/.pota-park
+    #end function
 else
     echo "Select a park by entering the number or create a new park by selecting # NEW*PARK"
     select opt in $(cat ~/.pota-park) NEW*PARK QUIT; do
         case $opt in
             NEW*PARK)
-                read -p "Enter the park details(UsefullName) no space: " parkID
-                read -p "Enter the park designator(ie. K-3180): " park
-                echo "$park$seperator$parkID" >> ~/.pota-park
+                    #create park file (duplicate from above)
+                    echo "Please enter the park details.."
+                    read -p "Enter the park details(UsefullName): " parkID
+                    #remove spaces
+                    parkID=$(echo $parkID | tr -d '[:space:]')
+
+
+                    read -p "Enter the park designator(ie. K-3180): " parkDesignator
+                    # Convert to uppercase
+                    parkDesignator=$(echo $parkDesignator | tr '[:lower:]' '[:upper:]')
+                    echo "$parkDesignator$seperator$parkID" >> ~/.pota-park
+                    #end function
                 break
                 ;;
             QUIT)
