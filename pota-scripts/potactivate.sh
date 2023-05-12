@@ -3,7 +3,7 @@
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.0.0
+# Version 1.0.5
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
@@ -49,8 +49,10 @@ if [ -f ~/.pota-lock ]; then
         case $yn in
             Yes*)
                 if [ -d "$WSJTLogFolder" ]; then
-                    mv "$WSJTLogFolder"wsjt_log.adi "$ParkLogFolder"
-                    mv "$WSJTLogFolder"wsjt.log "$ParkLogFolder"
+                    mv "$WSJTLogFolder"wsjtx_log.adi "$ParkLogFolder"
+                    mv "$WSJTLogFolder"wsjtx.log "$ParkLogFolder"
+                    #replace file to keep conky from complaining
+                    touch "$WSJTLogFolder"wsjtx.log
                     echo "Moved WSJT logs to $ParkLogFolder"
                 else
                     echo "error moving $WSJTLogFolder logs $ParkLogFolder"
