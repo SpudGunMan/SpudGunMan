@@ -3,7 +3,7 @@
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.0.5
+# Version 1.0.9
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
@@ -148,10 +148,10 @@ echo "Lockfile created with current progress in ~/.pota-lock"
 if [ $LaunchGPSD2HAM == "true" ]; then
     if [ -f grid2app.sh ]; then
         echo "Attempting gpsd2grid acuire, will auto-exit in 10 seconds if not found or no gpsd data"
-        gps=$(timeout 10s python3 grid2app.sh)
+        gps=$(timeout 10s bash grid2app.sh)
     fi
 fi
-echo "Happy Activating, re-run this script to wrap up your activation."
+echo "Happy Activating, re-run potActivate script to wrap up your activation."
 echo "73.."
 
 exit 0
