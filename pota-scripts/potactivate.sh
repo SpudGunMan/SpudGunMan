@@ -3,7 +3,7 @@
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.0.9
+# Version 1.1.0
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
@@ -27,14 +27,15 @@ echo
 
 #check for lockfile
 if [ -f ~/.pota-lock ]; then
+    #read lockfile
     ParkLogFolder=$(cat ~/.pota-lock | cut -d$seperator -f1)
     MyPark=$(cat ~/.pota-lock | cut -d$seperator -f2)
     MyParkID=$(cat ~/.pota-lock | cut -d$seperator -f3)
-    #Guess Activation count for WSJT
-    if [ -f $WSJTLogFolder/wsjt.log ]; then
 
+    #Guess Activation count for WSJT
+    if [ -f "$WSJTLogFolder"wsjt.log ]; then
         #count line numbers of log
-        count=$(wc -l $WSJTLogFolder/wsjt.log | cut -d' ' -f1)
+        count=$(wc -l "$WSJTLogFolder"wsjt.log | cut -d' ' -f1)
         if count > 10; then
             echo "CONGRATS WSJT has $count QSOs"
         else
@@ -42,8 +43,12 @@ if [ -f ~/.pota-lock ]; then
         fi
     fi
 
-    echo "Lockfile found, wrap up $MyPark, $MyParkID"
+    echo
+    echo "POTA - Parks On The Air welcome back $(cat ~/.pota-call)"
+    echo "You have an active activation in progress $MyPark, $MyParkID"
+    echo "Would you like to wrap up your activation?"
     echo "Select 1 Yes or 2 No"
+    echo
 
     select yn in "Yes-WrapUp" "No-Nevermind"; do
         case $yn in
@@ -155,6 +160,12 @@ if [ $LaunchGPSD2HAM == "true" ]; then
         gps=$(timeout 10s bash grid2app.sh)
     fi
 fi
+
+#touch conky file to keep fresh
+if [ -f ~/.conkyrc ]; then
+    touch ~/.conkyrc
+fi
+
 echo "Happy Activating, re-run potActivate script to wrap up your activation."
 echo "73.."
 
