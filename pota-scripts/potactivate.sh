@@ -111,7 +111,7 @@ if [ ! -f ~/.pota-park ]; then
     #end function
 else
     echo "Select a park by entering the number or create a new park by selecting # NEW*PARK"
-    select opt in $(cat ~/.pota-park) NEW*PARK QUIT; do
+    select opt in $(cat ~/.pota-park) SEARCH NEW*PARK QUIT; do
         case $opt in
             NEW*PARK)
                 #create park file (duplicate from above)
@@ -119,8 +119,7 @@ else
                 read -p "Enter the park details(UsefullName): " parkID
                 #remove spaces
                 parkID=$(echo $parkID | tr -d '[:space:]')
-
-
+                
                 read -p "Enter the park designator(ie. K-3180): " parkDesignator
                 # Convert to uppercase
                 parkDesignator=$(echo $parkDesignator | tr '[:lower:]' '[:upper:]')
@@ -129,6 +128,14 @@ else
                 park=$parkDesignator
                 #end function
                 break
+                ;;
+            SEARCH)
+                #if found grid2pota.sh display parks
+                if [ -f grid2pota.sh ]; then
+                    grid2pota.sh
+                else
+                    echo "grid2pota.sh not found"
+                fi
                 ;;
             QUIT)
                 echo "73.."
