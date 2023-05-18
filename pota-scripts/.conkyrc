@@ -3,7 +3,7 @@ conky.config = {
 	use_xft = true,
 	font = '123:size=8',
 	xftalpha = 0.5,
-	update_interval = 0.5,
+	update_interval = 1.0,
 	total_run_times = 0,
 	own_window = true,
 	own_window_type = 'normal',
@@ -32,23 +32,20 @@ conky.config = {
 
 conky.text = [[
 
-${font Arial:size=12}${color Yellow}${alignc}K7MHI
+${font Arial:bold:size=20}${color Orange}${alignc}K7MHI - Kelly
 
 ${voffset -30}
-${font Arial:bold:size=10}${color White}Gridsquare ${alignr}${color Yellow}${execi 60 cat /run/user/1000/gridinfo.txt | cut -c1-8}
-${font Arial:bold:size=10}${color White}Park ${alignr}${color Yellow}${execi 60 cat ~/.pota-lock | cut -d: -f2}
+${font Arial:bold:size=15}${color White}Gridsquare ${alignr}${color Yellow}${execi 60 cat /run/user/1000/gridinfo.txt | cut -c1-8}
+${font Arial:bold:size=15}${color White}Park ${alignr}${color Yellow}${execi 60 cat ~/.pota-lock | cut -d: -f2}
 
 ${color Yellow}LOCAL${alignr}ZULU
 ${voffset -20}
 ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=08}${color White}${time %H:%M:%S}\
+${font Arial:bold:size=18}${color White}${time %H:%M:%S}\
 ${alignr}${tztime Zulu %H:%M:%S}
-${font Arial:bold:size=08}${color White}${time %d%b%y}\
+${font Arial:bold:size=18}${color White}${time %d%b%y}\
 ${alignr}${tztime Zulu %d%b%y}
-
 ${voffset -85}
-
-
 
 ${color grey}
 ${font}
@@ -57,7 +54,7 @@ ${font Arial:bold:size=08}${color White}Frequency $alignr${freq_g cpu0}Ghz
 ${font Arial:bold:size=08}${color White}Uptime $alignr${uptime}
 #TEMP
 #${font Arial:bold:size=08}${color White}Temp: $alignr ${exec /usr/bin/vcgencmd measure_temp | awk -F "[=']" '{print($2 * 1.8)+32}'} F
-${voffset -10}
+${voffset -5}
 #hidden cpu
 #${font Arial:bold:size=6}${color White}CPU${alignr}${cpu}%
 #${cpubar cpu}
@@ -73,12 +70,15 @@ ${font Arial:bold:size=8}${color White}Wireless IP address $alignr ${addr wlx48d
 #${font Arial:bold:size=8}${color White}Wired IP address $alignr ${addr eth0}
 #${font Arial:bold:size=8}${color Yellow}DHCP ADDRESSES FOR HOTSPOT ${color DarkSlateGray}${hr 2}
 #${font Arial:bold:size=8}${color White}${execi 5 cat /var/lib/misc/dnsmasq.leases | awk '{ print $3"   "$4 }'}
-${voffset 25}
+${voffset 10}
 ${font Arial:bold:size=8}${color Yellow}RADIO TOOLS ${color DarkSlateGray}${hr 2}
 ${font Arial:size=08}${if_running flrig}${color green}FLRIG ACTIVE${else}${color red}FLRIG OFF$endif \
 ${alignr}${if_running rigctld}${color green}RIGCTL ACTIVE${else}${color red}RIGCTL OFF$endif
 ${if_running kissattach}${color green}KISSATCH ACTIVE${else}${color red}KISSATCH OFF$endif \
 ${alignr}${if_running direwolf}${color green}DIREWOLF ACTIVE${else}${color red}DIREWOLF OFF$endif
+#radio attached
+${if_existing /dev/ttyUSB0}${color green}DIGIRIG ACTIVE${else}${color red}DIGIRIG MISSING$endif \
+${alignr}${if_existing /dev/ttyACM0}${color green}IC-705 ACTIVE${else}${color red}IC-705 MISSING$endif
 #
 ${font Arial:bold:size=8}${color Yellow}DIGITAL APPS ${color DarkSlateGray}${hr 2}
 ${font Arial:size=08}${if_running js8call}${color green}JS8 ACTIVE${else}${color red}JS8 OFF$endif \
@@ -89,11 +89,10 @@ ${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}PULSE OFF$
 ${alignr}${if_running pat}${color green}PAT ACTIVE${else}${color red}PAT OFF$endif
 ${if_running VARA.exe}${color green}VARA-HF ACTIVE${else}${color red}VARA-HF OFF$endif \
 ${alignr}${if_running VARAFM.exe}${color green}VARA-FM ACTIVE${else}${color red}VARA-FM OFF$endif
-#
-${font Arial:bold:size=8}${color Yellow}RECENT LOG ENTRIES ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=6}${color White}${tail /home/k7mhi/.local/share/WSJT-X/wsjtx.log 5}
-
-
-
+${if_running qsstv}${color green}QSSTV ACTIVE${else}${color red}QSSTV OFF$endif \
+${alignr}${if_running xastir}${color green}APRS ACTIVE${else}${color red}APRS OFF$endif
+#Logs
+${font Arial:bold:size=8}${color Yellow}RECENT WSJT-X LOG ENTRIES ${execi 60 wc -l ~/.local/share/WSJT-X/wsjtx.log | cut -d' ' -f1}${color DarkSlateGray}${hr 2}
+${font Arial:bold:size=7}${color White}${execi 15 tail ~/.local/share/WSJT-X/wsjtx.log -n5 | cut -d, -f5,6,7,8,9,10,12}
 #$diskio
 ]];
