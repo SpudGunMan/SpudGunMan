@@ -35,7 +35,7 @@ if [ -f ~/.pota-lock ]; then
     #Guess Activation count for WSJT
     if [ -d $WSJTLogFolder ]; then
         #count line numbers of log
-        count=$(wc -l "$WSJTLogFolder"wsjt.log | cut -d' ' -f1)
+        count=$(wc -l "$WSJTLogFolder"wsjtx.log | cut -d' ' -f1)
         if [ -z count ]; then
             count=0
         fi
@@ -74,6 +74,8 @@ if [ -f ~/.pota-lock ]; then
                 ;;
             No*)
                 echo "Happy Activating 73.."
+                #force time sync hidden here
+                sudo ntpd -gq
                 exit 0
                 ;;
         esac
