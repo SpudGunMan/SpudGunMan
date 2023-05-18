@@ -3,7 +3,7 @@
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.2.3
+# Version 1.2.4
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
@@ -132,7 +132,7 @@ else
             SEARCH)
                 #if found grid2pota.sh display parks
                 if [ -f grid2pota.sh ]; then
-                    grid2pota.sh
+                    bash grid2pota.sh
                 else
                     echo "grid2pota.sh not found"
                 fi
