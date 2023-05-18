@@ -3,7 +3,7 @@
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.2.1
+# Version 1.2.3
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
@@ -15,7 +15,8 @@
 cd "$(dirname "$0")"
 logFolder=~/Documents/log_archive/
 WSJTLogFolder=~/.local/share/WSJT-X/
-date=$(date +%Y%m%d)
+#date in UTC for POTA
+date=$(date -u +%Y%m%d)
 seperator=":"
 LaunchGPSD2HAM="true"
 
