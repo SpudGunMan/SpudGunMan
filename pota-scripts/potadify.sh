@@ -1,6 +1,7 @@
 #! /bin/bash potadify.sh
 # make 'em POTA friendly
 # MIT License Kelly Keeton K7MHI 2023
+# Version 1.0.0
 # requires YAD if not presented wth a file  - sudo apt-get install yad
 # script to clean up adi files for POTA processing, mostly focused on simple WSJT-X logs and ADIF files missing the MY_SIG_INFO field
 
@@ -15,6 +16,8 @@ else
     if [ -z "$adifile" ]; then
         echo "No file selected exiting"
         exit 1
+    else 
+        echo "Examining $adifile for POTA compliance"
     fi
 fi
 
@@ -63,7 +66,6 @@ if grep -q "MY_SIG:4>POTA" "$adifile"; then
     sed "s/$MyPark/$NewPark/g" "$adifile" > "$adir"/$(basename "$adifile" .adi)_$NewPark.adi
     echo "New file created: $adir/$(basename "$adifile" .adi)_$NewPark.adi"
     exit 0
-
 else
     read -p "SIG_INFO not found correct and add the SIG_INFO field? " yn
     case $yn in
