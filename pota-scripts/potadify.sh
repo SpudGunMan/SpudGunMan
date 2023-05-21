@@ -65,7 +65,7 @@ if grep -q "MY_SIG:4>POTA" "$adifile"; then
     exit 0
 
 else
-    read "SIG_INFO not found correct and add the SIG_INFO field?" yn
+    read -p "SIG_INFO not found correct and add the SIG_INFO field? " yn
     case $yn in
         [Yy]* ) 
             echo "adding SIG_INFO field"
