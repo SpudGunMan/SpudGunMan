@@ -36,7 +36,7 @@ if grep -q "MY_SIG:4>POTA" "$adifile"; then
 
     #get new park number
     if [ -f ~/.pota-park ]; then
-        echo "Select a park by entering the number or create a new park by selecting # NEW*PARK"
+        echo "Select a park by entering the number"
         select opt in $(cat ~/.pota-park) QUIT; do
             case $opt in
                 QUIT)
@@ -44,7 +44,7 @@ if grep -q "MY_SIG:4>POTA" "$adifile"; then
                     exit 0
                     ;;
                 *)
-                    NewPark=$(echo $opt | cut -d' ' -f1)
+                    NewPark=$(echo $opt | cut -d: -f2)
                     echo "Selected park: $NewPark"
                     break
                     ;;
@@ -82,7 +82,7 @@ else
                             exit 0
                             ;;
                         *)
-                            MyPark=$(echo $opt | cut -d' ' -f1)
+                            MyPark=$(echo $opt | cut -d: -f2)
                             echo "Selected park: $MyPark"
                             break
                             ;;
