@@ -68,19 +68,19 @@ if [ -f ~/.pota-lock ]; then
 
                     #nested menu mess coming up
                     #ask user if they want to furhter process logs?
-                    echo "Would you like to process the logs for upload?"
+                    echo "Would you like to process the logs for upload to POTA adding the MY_SIG value?"
                     echo "Select 1 Yes or 2 No"
                     select yn in "Yes-Process" "No-Nevermind"; do
                         case $yn in
                             Yes*)
                                 #process MY_SIG info on the logs
-                                sed 's/<eor>/<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>/g' "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
+                                sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
 
                                 #ask user if they operated SSB expected to find ssb.adi
                                 read -p "Did you operate SSB? put the file into $PakLogFolder now! (y/n): " ssb
                                 if [ -f ssb.adi ]; then
                                     #process MY_SIG info on the logs for SSB
-                                    sed 's/<EOR>/<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>/g' "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
+                                    sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
                                 fi
                                 break
                                 ;;
