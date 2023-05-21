@@ -5,12 +5,26 @@
 # requires YAD if not presented wth a file  - sudo apt-get install yad
 # script to clean up adi files for POTA processing, mostly focused on simple WSJT-X logs and ADIF files missing the MY_SIG_INFO field
 
+# set variables
+logFolder=~/Documents/log_archive/
+
+# check for log folder
+if ! [ -d $logFolder ]; then
+    echo "Missing $logFolder"
+else 
+    cd $logFolder
+fi
 
 # if file on the command line use that
 if [ -n "$1" ]; then
     adifile=$1
     echo "Using $adifile"
 else
+    # check for YAD
+    if ! [ -x "$(command -v yad)" ]; then
+        echo 'ERROR: try: sudo apt-get install yad' >&2
+        exit 1
+    fi
     # get the adi file with YAD GUI
     adifile=$(yad --title "POTAdi-fy select adi file for processing" --file)
     if [ -z "$adifile" ]; then
