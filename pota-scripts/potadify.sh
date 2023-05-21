@@ -8,8 +8,8 @@
 # set variables
 logFolder=~/Documents/log_archive/
 
-# if file on the command line use that
-if [ ! -z "$1" ]; then
+#check if options on command valid
+if [ -f "$1" ]; then
     adifile=$1
     echo "Using $adifile"
 else
@@ -25,6 +25,7 @@ else
     else 
         cd $logFolder
     fi
+
     # get the adi file with YAD GUI
     adifile=$(yad --title "POTAdi-fy select adi file for processing" --file)
     if [ -z "$adifile" ]; then
