@@ -8,13 +8,6 @@
 # set variables
 logFolder=~/Documents/log_archive/
 
-# check for log folder
-if ! [ -d $logFolder ]; then
-    echo "Missing $logFolder"
-else 
-    cd $logFolder
-fi
-
 # if file on the command line use that
 if [ ! -z "$1" ]; then
     adifile=$1
@@ -24,6 +17,13 @@ else
     if ! [ -x "$(command -v yad)" ]; then
         echo 'ERROR: try: sudo apt-get install yad' >&2
         exit 1
+    fi
+
+    #set yad start directory 
+    if ! [ -d $logFolder ]; then
+        echo "Missing $logFolder"
+    else 
+        cd $logFolder
     fi
     # get the adi file with YAD GUI
     adifile=$(yad --title "POTAdi-fy select adi file for processing" --file)
