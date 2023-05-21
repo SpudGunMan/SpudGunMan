@@ -52,7 +52,8 @@ if grep -q "MY_SIG:4>POTA" "$adifile"; then
     #get first entery in $siginfo for Park number
     MyPark=$(echo $siginfo | cut -d' ' -f1)
 
-    #get new park number
+    #get new park number the .pota-park file if it exists is from potactivate.sh by yours truly K7MHI its a list of parks you have activated
+    # K-####:ParkName is the formatting FYI
     if [ -f ~/.pota-park ]; then
         echo "Select a NEW park by entering the number, this will replace $MyPark with the new park number selected"
         select opt in $(cat ~/.pota-park) QUIT; do
