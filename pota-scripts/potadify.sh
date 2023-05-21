@@ -2,7 +2,7 @@
 # potadify.sh
 # make 'em POTA friendly
 # MIT License Kelly Keeton K7MHI 2023
-# Version 1.1.0
+# Version 1.1.1
 # requires YAD if not presented wth a file  - sudo apt-get install yad
 # script to clean up adi files for POTA processing, mostly focused on simple WSJT-X logs and ADIF files missing the MY_SIG_INFO field
 
@@ -25,7 +25,7 @@ if [ -z "$1" ]; then
     fi
 
     # prompt for file
-    adifile=$(yad --file --title="Select ADIF file to process" --width=600 --height=400)
+    adifile=$(yad --file --title="POTAdi-FY by K7MHI Select ADIF file to process" --fixed --width=800 --height=400)
     if [ -z "$adifile" ]; then
         echo "No file selected exiting"
         exit 1
