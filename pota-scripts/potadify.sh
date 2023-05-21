@@ -46,8 +46,11 @@ adir=$(dirname "$adifile")
 if grep -q "MY_SIG:4>POTA" "$adifile"; then
     #get record from <MY_SIG_INFO:6> to <
     siginfo=$(grep -o '<MY_SIG_INFO:6>.*<' "$adifile" | cut -d'>' -f2 | sed 's/ <//g')
+    
+    #might shut this off once you trust the script
     echo "SIG_INFO found, if any of the following dont match halt and find out what went wrong"
     echo $siginfo
+    echo "SIG_INFO found, if any of the preceeding didnt match halt and find out what went wrong"
 
     #get first entery in $siginfo for Park number
     MyPark=$(echo $siginfo | cut -d' ' -f1)
