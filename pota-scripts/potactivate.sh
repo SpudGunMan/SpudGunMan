@@ -1,4 +1,5 @@
-#! /bin/bash potactivate.sh
+#! /bin/bash 
+# potactivate.sh
 # POTA - Parks On The Air Activation Script
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License

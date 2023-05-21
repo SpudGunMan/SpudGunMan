@@ -1,4 +1,5 @@
-#! /bin/bash potadify.sh
+#! /bin/bash 
+# potadify.sh
 # make 'em POTA friendly
 # MIT License Kelly Keeton K7MHI 2023
 # Version 1.1.0
