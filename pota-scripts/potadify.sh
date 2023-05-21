@@ -1,7 +1,7 @@
 #! /bin/bash potadify.sh
 # make 'em POTA friendly
 # MIT License Kelly Keeton K7MHI 2023
-# Version 1.0.0
+# Version 1.1.0
 # requires YAD if not presented wth a file  - sudo apt-get install yad
 # script to clean up adi files for POTA processing, mostly focused on simple WSJT-X logs and ADIF files missing the MY_SIG_INFO field
 
@@ -36,7 +36,7 @@ if grep -q "MY_SIG:4>POTA" "$adifile"; then
 
     #get new park number
     if [ -f ~/.pota-park ]; then
-        echo "Select a park by entering the number"
+        echo "Select a NEW park by entering the number, this will replace $MyPark with the new park number selected"
         select opt in $(cat ~/.pota-park) QUIT; do
             case $opt in
                 QUIT)
