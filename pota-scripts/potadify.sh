@@ -44,7 +44,7 @@ if grep -q "MY_SIG:4>POTA" "$adifile"; then
                     exit 0
                     ;;
                 *)
-                    NewPark=$(echo $opt | cut -d: -f2)
+                    NewPark=$(echo $opt | cut -d: -f1)
                     echo "Selected park: $NewPark"
                     break
                     ;;
@@ -82,7 +82,7 @@ else
                             exit 0
                             ;;
                         *)
-                            MyPark=$(echo $opt | cut -d: -f2)
+                            MyPark=$(echo $opt | cut -d: -f1)
                             echo "Selected park: $MyPark"
                             break
                             ;;
