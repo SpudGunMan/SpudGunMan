@@ -102,10 +102,10 @@ else
             #if file contains <eor> then add MY_SIG_INFO
             if grep -q "<eor>" "$adifile"; then
                 echo "eor found adding MY_SIG_INFO"
-                sed 's/<eor>/<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>/g' "$adifile" > "$adir"/$(basename "$adifile" .adi)_$MyPark.adi
+                sed 's/<eor>/<MY_SIG:4>POTA <MY_SIG_INFO:6>"$MyPark" <eor>/g' "$adifile" > "$adir"/$(basename "$adifile" .adi)_$MyPark.adi
             else
                 echo "EOR found adding MY_SIG_INFO"
-                sed 's/<EOR>/<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>/g' "$adifile" > "$adir"/$(basename "$adifile" .adi)_$MyPark.adi
+                sed 's/<EOR>/<MY_SIG:4>POTA <MY_SIG_INFO:6>"$MyPark" <EOR>/g' "$adifile" > "$adir"/$(basename "$adifile" .adi)_$MyPark.adi
             fi
 
             echo "come back again to process these further if needed! 73.."
