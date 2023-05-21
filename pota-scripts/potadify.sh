@@ -8,11 +8,8 @@
 # set variables
 logFolder=~/Documents/log_archive/
 
-#check if options on command valid
-if [ -f "$1" ]; then
-    adifile=$1
-    echo "Using $adifile"
-else
+# if file specified on command line use it otherwise prompt for file
+if [ -z "$1" ]; then
     # check for YAD
     if ! [ -x "$(command -v yad)" ]; then
         echo 'ERROR: try: sudo apt-get install yad' >&2
@@ -26,15 +23,20 @@ else
         cd $logFolder
     fi
 
-    # get the adi file with YAD GUI
-    adifile=$(yad --title "POTAdi-fy select adi file for processing" --file)
+    # prompt for file
+    adifile=$(yad --file --title="Select ADIF file to process" --width=600 --height=400)
     if [ -z "$adifile" ]; then
         echo "No file selected exiting"
         exit 1
     else 
         echo "Examining $adifile for POTA compliance"
     fi
+else
+    # use file from command line
+    adifile=$1
+    echo "Examining $adifile for POTA compliance"
 fi
+
 
 #get directory of the adi file
 adir=$(dirname "$adifile")
