@@ -84,7 +84,7 @@ if [ -f ~/.pota-lock ]; then
                                 break
                                 ;;
                             No*)
-                                echo "Happy Activating 73.."
+                                echo "No further action taken 73.."
                                 break
                                 ;;
                         esac
