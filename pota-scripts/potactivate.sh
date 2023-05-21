@@ -3,7 +3,7 @@
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.2.4
+# Version 1.3.0
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
@@ -64,6 +64,32 @@ if [ -f ~/.pota-lock ]; then
                     #replace file to keep conky from complaining
                     touch "$WSJTLogFolder"wsjtx.log
                     echo "Moved WSJT logs to $ParkLogFolder"
+
+                    #nested menu mess coming up
+                    #ask user if they want to furhter process logs?
+                    echo "Would you like to process the logs for upload?"
+                    echo "Select 1 Yes or 2 No"
+                    select yn in "Yes-Process" "No-Nevermind"; do
+                        case $yn in
+                            Yes*)
+                                #process MY_SIG info on the logs
+                                sed 's/<eor>/<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>/g' "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
+
+                                #ask user if they operated SSB expected to find ssb.adi
+                                read -p "Did you operate SSB? put the file into $PakLogFolder now! (y/n): " ssb
+                                if [ -f ssb.adi ]; then
+                                    #process MY_SIG info on the logs for SSB
+                                    sed 's/<EOR>/<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>/g' "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
+                                fi
+                                break
+                                ;;
+                            No*)
+                                echo "Happy Activating 73.."
+                                break
+                                ;;
+                        esac
+                    done
+
                 else
                     echo "error moving $WSJTLogFolder logs $ParkLogFolder"
                 fi
