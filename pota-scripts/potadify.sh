@@ -16,7 +16,7 @@ else
 fi
 
 # if file on the command line use that
-if [ -n "$1" ]; then
+if [ ! -z "$1" ]; then
     adifile=$1
     echo "Using $adifile"
 else
