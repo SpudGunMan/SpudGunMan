@@ -66,32 +66,20 @@ if [ -f ~/.pota-lock ]; then
                     touch "$WSJTLogFolder"wsjtx.log
                     echo "Moved WSJT logs to $ParkLogFolder"
 
-                    #nested menu mess coming up
-                    #ask user if they want to furhter process logs?
-                    echo "Would you like to process the logs for upload to POTA adding the MY_SIG value?"
-                    echo "Select 1 Yes or 2 No"
-                    select yn in "Yes-Process" "No-Nevermind"; do
-                        case $yn in
-                            Yes*)
-                                #process MY_SIG info on the logs
-                                sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
+                    
+                    #process MY_SIG info on the logs
+                    sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
 
-                                #ask user if they operated SSB expected to find ssb.adi or SSB.adi
-                                if [ -f "$WSJTLogFolder"ssb.adi | "$WSJTLogFolder"SSB.adi ]; then
-                                    #process MY_SIG info on the logs for SSB
-                                    sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
-                                fi
-                                break
-                                ;;
-                            No*)
-                                echo "No further action taken 73.."
-                                break
-                                ;;
-                        esac
-                    done
+                    #if they operated SSB expected to find ssb.adi or SSB.adi
+                    if [ -f "$WSJTLogFolder"ssb.adi | "$WSJTLogFolder"SSB.adi ]; then
+                        #process MY_SIG info on the logs for SSB
+                        sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
+                        echo "Moved SSB logs to $ParkLogFolder"
+                    fi
 
                 else
-                    echo "error moving $WSJTLogFolder logs $ParkLogFolder"
+                    echo "error moving $WSJTLogFolder dose not exist"
+                    exit 1
                 fi
 
                 rm ~/.pota-lock
