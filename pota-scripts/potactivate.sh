@@ -76,9 +76,8 @@ if [ -f ~/.pota-lock ]; then
                                 #process MY_SIG info on the logs
                                 sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
 
-                                #ask user if they operated SSB expected to find ssb.adi
-                                read -p "Did you operate SSB? put the file into $PakLogFolder now! (y/n): " ssb
-                                if [ -f ssb.adi ]; then
+                                #ask user if they operated SSB expected to find ssb.adi or SSB.adi
+                                if [ -f "$WSJTLogFolder"ssb.adi | "$WSJTLogFolder"SSB.adi ]; then
                                     #process MY_SIG info on the logs for SSB
                                     sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
                                 fi
