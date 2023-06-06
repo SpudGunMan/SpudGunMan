@@ -4,18 +4,21 @@
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.3.1
+# Version 1.4.0
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
 # It will also help you wrap up your activation by moving WSJT logs to the log folder
 # Allowing for clean uploads to the POTA website
 
-
-# Initialize variables
-cd "$(dirname "$0")"
+#user variables
+LOTW_LOCATION="United States"
 logFolder=~/Documents/log_archive/
 WSJTLogFolder=~/.local/share/WSJT-X/
+
+
+#system variables
+cd "$(dirname "$0")"
 #date in UTC for POTA
 date=$(date -u +%Y%m%d)
 seperator=":"
@@ -66,15 +69,72 @@ if [ -f ~/.pota-lock ]; then
                     touch "$WSJTLogFolder"wsjtx.log
                     echo "Moved WSJT logs to $ParkLogFolder"
 
+                    # if operated FT8 expected to find wsjtx_log.adi
+                    if [ -f "$ParkLogFolder"wsjtx_log.adi ]; then
+                        #process MY_SIG info on the logs
+                        sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
+                    fi 
                     
-                    #process MY_SIG info on the logs
-                    sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
-
-                    #if they operated SSB expected to find ssb.adi or SSB.adi
-                    if [ -f "$WSJTLogFolder"ssb.adi | "$WSJTLogFolder"SSB.adi ]; then
-                        #process MY_SIG info on the logs for SSB
+                    #if operated SSB expected to find ssb.adi or SSB.adi
+                    if [ -f "$WSJTLogFolder"ssb.adi ]; then
+                        #process MY_SIG info on the logs for ssb
                         sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
-                        echo "Moved SSB logs to $ParkLogFolder"
+                    fi
+
+                    if [ -f "$WSJTLogFolder"SSB.adi ]; then
+                        #process MY_SIG info on the logs for SSB
+                        sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"SSB.adi > "$ParkLogFolder"ssb_$MyPark.adi
+                    fi
+
+                    echo "Processed logs to $ParkLogFolder for Park $MyPark"
+                    echo 
+                    read -p "Enter your activation notes: " notes
+                    if [ -z "$notes" ]; then
+                        notes="No notes provided"
+                    else
+                        echo "$notes" > "$ParkLogFolder"notes.txt
+                    fi
+                    echo 
+                    echo "Thanks for activating $MyPark, $MyParkID"
+                    read -p "Attach network to upload TQSL now? (y/n): " tqsl
+
+                    if [ "$tqsl" == "y" ]; then
+                        #check for internet
+                        if ping -q -c 1 -W 1 arrl.org >/dev/null; then
+
+                            #check for TQSL
+                            if [[ $(whereis tqsl | grep bin) ]]; then
+                                echo "TQSL is installed"
+                            else
+                                echo "TQSL is not installed?"
+                                echo "73.."
+                                exit 1
+                            fi
+
+                            #OEM check you need to edit file
+                            if $LOTW_LOCATION == "United States"; then
+                                echo "LOTW location is not set? edit this file"
+                                echo "73.."
+                                exit 1
+                            fi
+
+                            echo "Internet is up, uploading to TQSL"
+                            if [ -f "$ParkLogFolder"wsjtx_log_$MyPark.adi ]; then
+                                tqsl -a all -d -u -l $LOTW_LOCATION "$ParkLogFolder"wsjtx_log_$MyPark.adi
+                                echo "Uploaded wsjtx_log.adi to LOTW"
+                            fi
+                            if [ -f "$ParkLogFolder"SSB.adi ]; then
+                                tqsl -a all -d -u -l $LOTW_LOCATION "$ParkLogFolder"SSB.adi
+                                echo "Uploaded SSB.adi to LOTW"
+                            fi
+                            if [ -f "$ParkLogFolder"ssb.adi ]; then
+                                tqsl -a all -d -u -l $LOTW_LOCATION "$ParkLogFolder"ssb.adi
+                                echo "Uploaded ssb.adi to LOTW"
+                            fi
+
+                        else
+                            echo "Internet is down, please upload to manually"
+                        fi
                     fi
 
                 else
