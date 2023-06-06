@@ -119,8 +119,8 @@ if [ -f ~/.pota-lock ]; then
                             fi
 
                             echo "Internet is up, uploading to TQSL"
-                            if [ -f "$ParkLogFolder"wsjtx_log_$MyPark.adi ]; then
-                                tqsl -a all -d -u -l $LOTW_LOCATION "$ParkLogFolder"wsjtx_log_$MyPark.adi
+                            if [ -f "$ParkLogFolder"wsjtx_log.adi ]; then
+                                tqsl -a all -d -u -l $LOTW_LOCATION "$ParkLogFolder"wsjtx_log.adi
                                 echo "Uploaded wsjtx_log.adi to LOTW"
                             fi
                             if [ -f "$ParkLogFolder"SSB.adi ]; then
