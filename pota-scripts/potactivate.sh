@@ -112,7 +112,7 @@ if [ -f ~/.pota-lock ]; then
                             fi
 
                             #OEM check you need to edit file
-                            if $LOTW_LOCATION == "United States"; then
+                            if [ "$LOTW_LOCATION" == "United States" ]; then
                                 echo "LOTW location is not set? edit this file"
                                 echo "73.."
                                 exit 1
@@ -120,15 +120,15 @@ if [ -f ~/.pota-lock ]; then
 
                             echo "Internet is up, uploading to TQSL"
                             if [ -f "$ParkLogFolder"wsjtx_log.adi ]; then
-                                tqsl -a all -d -u -l $LOTW_LOCATION "$ParkLogFolder"wsjtx_log.adi
+                                tqsl -a all -d -u -l "$LOTW_LOCATION" "$ParkLogFolder"wsjtx_log.adi
                                 echo "Uploaded wsjtx_log.adi to LOTW"
                             fi
                             if [ -f "$ParkLogFolder"SSB.adi ]; then
-                                tqsl -a all -d -u -l $LOTW_LOCATION "$ParkLogFolder"SSB.adi
+                                tqsl -a all -d -u -l "$LOTW_LOCATION" "$ParkLogFolder"SSB.adi
                                 echo "Uploaded SSB.adi to LOTW"
                             fi
                             if [ -f "$ParkLogFolder"ssb.adi ]; then
-                                tqsl -a all -d -u -l $LOTW_LOCATION "$ParkLogFolder"ssb.adi
+                                tqsl -a all -d -u -l "$LOTW_LOCATION" "$ParkLogFolder"ssb.adi
                                 echo "Uploaded ssb.adi to LOTW"
                             fi
 
