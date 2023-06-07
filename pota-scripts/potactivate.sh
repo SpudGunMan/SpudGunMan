@@ -4,7 +4,7 @@
 # Copyright 2023 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.4.0
+# Version 1.4.1
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
@@ -73,29 +73,31 @@ if [ -f ~/.pota-lock ]; then
                     if [ -f "$ParkLogFolder"wsjtx_log.adi ]; then
                         #process MY_SIG info on the logs
                         sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
+                        echo "Processed WSJTX logs to $ParkLogFolder for Park $MyPark"
                     fi 
                     
                     #if operated SSB expected to find ssb.adi or SSB.adi
                     if [ -f "$WSJTLogFolder"ssb.adi ]; then
                         #process MY_SIG info on the logs for ssb
                         sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
+                        echo "Processed ssb logs to $ParkLogFolder for Park $MyPark"
                     fi
 
                     if [ -f "$WSJTLogFolder"SSB.adi ]; then
                         #process MY_SIG info on the logs for SSB
                         sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"SSB.adi > "$ParkLogFolder"ssb_$MyPark.adi
+                        echo "Processed SSB logs to $ParkLogFolder for Park $MyPark"
                     fi
 
-                    echo "Processed logs to $ParkLogFolder for Park $MyPark"
                     echo 
                     read -p "Enter your activation notes: " notes
                     if [ -z "$notes" ]; then
                         notes="No notes provided"
                     else
                         echo "$notes" > "$ParkLogFolder"notes.txt
+                        echo "Added notes to $ParkLogFolder"
                     fi
                     echo 
-                    echo "Thanks for activating $MyPark, $MyParkID"
                     read -p "Attach network to upload TQSL now? (y/n): " tqsl
 
                     if [ "$tqsl" == "y" ]; then
