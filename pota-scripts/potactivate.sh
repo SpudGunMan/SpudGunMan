@@ -99,7 +99,7 @@ if [ -f ~/.pota-lock ]; then
                     fi
                     #get system uptime use for park work time estimate
                     uptime=$(uptime -p)
-                    echo "Working Time: $uptime" >> "$ParkLogFolder"notes.txt
+                    echo "$MyPark Working Time: $uptime" >> "$ParkLogFolder"notes.txt
 
 
                     read -p "Attach network to upload TQSL now? (y/n): " tqsl
