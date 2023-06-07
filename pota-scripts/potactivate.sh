@@ -90,14 +90,18 @@ if [ -f ~/.pota-lock ]; then
                     fi
 
                     echo 
-                    read -p "Enter your activation notes: " notes
+                    read -p "Enter any activation notes: " notes
                     if [ -z "$notes" ]; then
                         notes="No notes provided"
                     else
                         echo "$notes" > "$ParkLogFolder"notes.txt
                         echo "Added notes to $ParkLogFolder"
                     fi
-                    echo 
+                    #get system uptime use for park work time estimate
+                    uptime=$(uptime -p)
+                    echo "Working Time: $uptime" >> "$ParkLogFolder"notes.txt
+
+
                     read -p "Attach network to upload TQSL now? (y/n): " tqsl
 
                     if [ "$tqsl" == "y" ]; then
