@@ -69,16 +69,6 @@ if [ -f ~/.pota-lock ]; then
                     touch "$WSJTLogFolder"wsjtx.log
                     echo "Moved WSJT logs to $ParkLogFolder"
 
-                    #for all .adi files in ParkLogFolder add MY_SIG info
-                    for file in "$ParkLogFolder"*.adi; do
-                        #tail all logs into a master log
-                        cat "$file" >> "$ParkLogFolder"combined_$MyPark.adi
-                    done
-                    sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"combined_$MyPark.adi > "$ParkLogFolder"_FORUPLOAD_$MyPark.adi
-                    echo "Added MY_SIG info to $ParkLogFolder combined_$MyPark.adi"
-
-                    ##DUMP THE FOLLOWING REPLACE
-
                     # if operated FT8 expected to find wsjtx_log.adi
                     if [ -f "$ParkLogFolder"wsjtx_log.adi ]; then
                         #process MY_SIG info on the logs
@@ -89,17 +79,9 @@ if [ -f ~/.pota-lock ]; then
                     #if operated SSB expected to find ssb.adi or SSB.adi
                     if [ -f "$WSJTLogFolder"ssb.adi ]; then
                         #process MY_SIG info on the logs for ssb
-                        sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
+                        sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
                         echo "Processed ssb logs to $ParkLogFolder for Park $MyPark"
                     fi
-
-                    if [ -f "$WSJTLogFolder"SSB.adi ]; then
-                        #process MY_SIG info on the logs for SSB
-                        sed "s|<EOR>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <EOR>|g" "$ParkLogFolder"SSB.adi > "$ParkLogFolder"ssb_$MyPark.adi
-                        echo "Processed SSB logs to $ParkLogFolder for Park $MyPark"
-                    fi
-
-                    ##DUMP TO HERE REPLACE 
 
                     echo 
                     read -p "Enter any activation notes: " notes
