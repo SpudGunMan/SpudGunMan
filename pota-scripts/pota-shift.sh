@@ -16,14 +16,9 @@ late_start_local=1900
 #early_end_local=1200
 #late_start_local=2200
 
-# ## DO NOT EDIT BELOW THIS LINE ## #
-#static variables to round out the day
-late_end_local=$early_start
-day_start_local=$early_end
-day_end_local=$late_start
-
 # Get the current time in local time
 local_time=$(date +%H%M)
+
 
 # Check if the current time is between the early shift
 if [ $local_time -ge $early_start_local ] && [ $local_time -lt $early_end_local ]; then
@@ -32,16 +27,11 @@ if [ $local_time -ge $early_start_local ] && [ $local_time -lt $early_end_local 
 fi
 
 # Check if the current time is between the late shift
-if [ $local_time -ge $late_start_local ] && [ $local_time -lt $late_end_local ]; then
+if [ $local_time -ge $late_start_local ]; then
     echo "POTA Late Shift"
     exit 0
 fi
 
 # If the current time is not in the early or late shift then
 echo "POTA Day Shift"
-
-
-
-
-
-
+exit 0
