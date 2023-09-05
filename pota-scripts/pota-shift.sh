@@ -9,7 +9,7 @@
 # "PST" time zone shown below in 24 hour format, shift time do not follow time zone see map
 early_start_local=0300
 early_end_local=0900
-late_start_local=1900
+late_start_local=1700
 
 # example of "EST" time zone shown below in 24 hour format
 #early_start_local=0600
