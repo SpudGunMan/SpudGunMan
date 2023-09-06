@@ -27,7 +27,7 @@ if [ $local_time -ge $late_start_local ]; then
     exit 0
 fi
 
-If [ $local_time -gt $early_end_local ] && [ $local_time -lt $late_start_local ]; then
+if [ $local_time -gt $early_end_local ] && [ $local_time -lt $late_start_local ]; then
     echo "POTA Day Shift"
     exit 0
 fi
