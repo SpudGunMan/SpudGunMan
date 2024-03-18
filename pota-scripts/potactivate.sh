@@ -149,8 +149,16 @@ if [ -f ~/.pota-lock ]; then
                 ;;
             No*)
                 echo "Happy Activating 73.."
-                #force time sync hidden here
-                sudo ntpd -gq
+                #force time sync here
+                # check for ntpd otherwise suggest to install
+                if [[ $(whereis ntpd | grep bin) ]]; then
+                    sudo ntpd -gq
+                    echo "Time sync initiated"
+                    exit 0
+                else
+                    echo "ntpd not found, please install ntpd with, sudo apt-get install ntp"
+                    exit 1
+                fi
                 exit 0
                 ;;
         esac
