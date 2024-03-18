@@ -56,11 +56,11 @@ if grep -q "MY_SIG:4>POTA" "$adifile"; then
     MyPark=$(echo $siginfo | cut -d' ' -f1)
 
     #get new park number the .pota-park file if it exists is from potactivate.sh by yours truly K7MHI its a list of parks you have activated
-    # K-####:ParkName is the formatting FYI
+    # US-####:ParkName is the formatting FYI
     # so if your ~/.pota-park file has a lot or only the ones you need .. if it looks like this.. (no #s single park per line)
     #
-    #K-1234:TwoFerPark
-    #K-5678:TrailHead
+    #US-1234:TwoFerPark
+    #US-5678:TrailHead
     #
     #you will only see a menu with those two "enhancer" parks while will by written to new adi file
 
@@ -80,11 +80,11 @@ if grep -q "MY_SIG:4>POTA" "$adifile"; then
             esac
         done
     else
-        read -p "No park file found, Enter the park designator(ie. K-4563): " NewPark
+        read -p "No park file found, Enter the park designator(ie. US-4563): " NewPark
         # Convert to uppercase
         NewPark=$(echo $NewPark | tr '[:lower:]' '[:upper:]')
-        #confirm matches K-####
-        if [[ ! $NewPark =~ ^K-[0-9]{4}$ ]]; then
+        #confirm matches US-####
+        if [[ ! $NewPark =~ ^US-[0-9]{4}$ ]]; then
             echo "Invalid park designator format"
             exit 1
         fi
@@ -118,11 +118,11 @@ else
                     esac
                 done
             else
-                read -p "No park file found, Enter the park designator(ie. K-4563): " MyPark
+                read -p "No park file found, Enter the park designator(ie. US-4563): " MyPark
                 # Convert to uppercase
                 MyPark=$(echo $MyPark | tr '[:lower:]' '[:upper:]')
-                #confirm matches K-####
-                if [[ ! $MyPark =~ ^K-[0-9]{4}$ ]]; then
+                #confirm matches US-####
+                if [[ ! $MyPark =~ ^US-[0-9]{4}$ ]]; then
                     echo "Invalid park designator format"
                     exit 1
                 fi
