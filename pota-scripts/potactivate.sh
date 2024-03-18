@@ -176,7 +176,7 @@ if [ ! -f ~/.pota-park ]; then
     #remove spaces
     parkID=$(echo $parkID | tr -d '[:space:]')
 
-    read -p "Enter the park designator(ie. K-3180): " parkDesignator
+    read -p "Enter the park designator(ie. US-3180): " parkDesignator
     # Convert to uppercase
     parkDesignator=$(echo $parkDesignator | tr '[:lower:]' '[:upper:]')
     echo "$parkDesignator$seperator$parkID" >> ~/.pota-park
@@ -194,7 +194,7 @@ else
                 #remove spaces
                 parkID=$(echo $parkID | tr -d '[:space:]')
                 
-                read -p "Enter the park designator(ie. K-3180): " parkDesignator
+                read -p "Enter the park designator(ie. US-3180): " parkDesignator
                 # Convert to uppercase
                 parkDesignator=$(echo $parkDesignator | tr '[:lower:]' '[:upper:]')
                 echo "$parkDesignator$seperator$parkID" >> ~/.pota-park
