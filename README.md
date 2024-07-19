@@ -11,6 +11,7 @@ I would not recomend cloning this repro, rather select from below.
 [meshing-around](https://github.com/SpudGunMan/meshing-around) Meshtastic autoresponder / BBS / Bot
 
 ## Archive or back burner
+- [freedata-bot](https://github.com/SpudGunMan/freedata-bot)
 - [bapi](https://github.com/SpudGunMan/bapi)
 - [gpsd2ham](https://github.com/SpudGunMan/gpsd2ham)
 - [SteppIR](https://github.com/SpudGunMan/steppir-mods) Mods
