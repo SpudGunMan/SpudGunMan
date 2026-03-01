@@ -1,10 +1,10 @@
 #! /bin/bash 
 # potactivate.sh
 # POTA - Parks On The Air Activation Script
-# Copyright 2023 Kelly Keeton K7MHI
+# Copyright 2026 Kelly Keeton K7MHI
 # Licensed under the MIT License
 # https://opensource.org/licenses/MIT
-# Version 1.4.1
+# Version 1.5
 
 # This script is designed to help you activate a park for Parks On The Air
 # It will create a log folder for the park and a lockfile to track progress
@@ -15,6 +15,9 @@
 LOTW_LOCATION="United States"
 logFolder=~/Documents/log_archive/
 WSJTLogFolder=~/.local/share/WSJT-X/
+FLDIGLog=~/.fldigi/logs/logbook.adif
+VARACLog=~/Documents/log_archive/Varac_qso_log.adi
+
 
 
 #system variables
@@ -37,20 +40,6 @@ if [ -f ~/.pota-lock ]; then
     MyPark=$(cat ~/.pota-lock | cut -d$seperator -f2)
     MyParkID=$(cat ~/.pota-lock | cut -d$seperator -f3)
 
-    #Guess Activation count for WSJT
-    if [ -d $WSJTLogFolder ]; then
-        #count line numbers of log
-        count=$(wc -l "$WSJTLogFolder"wsjtx.log | cut -d' ' -f1)
-        if [ -z count ]; then
-            count=0
-        fi
-
-        if [[ $count -gt 10 ]]; then
-            echo "CONGRATS WSJT has $count QSOs"
-        else
-            echo "You didnt activate yet, WSJT has $count QSOs"
-        fi
-    fi
 
     echo
     echo "POTA - Parks On The Air welcome back $(cat ~/.pota-call)"
@@ -77,11 +66,31 @@ if [ -f ~/.pota-lock ]; then
                     fi 
                     
                     #if operated SSB expected to find ssb.adi or SSB.adi
-                    if [ -f "$WSJTLogFolder"ssb.adi ]; then
+                    if [ -f "$ParkLogFolder"ssb.adi ]; then
                         #process MY_SIG info on the logs for ssb
                         sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
                         echo "Processed ssb logs to $ParkLogFolder for Park $MyPark"
                     fi
+
+                    #move fldigi logs if exist and touch new log to keep conky happy rename to fldigi_log_$MyPark.adi
+                    if [ -d "$FLDIGLogFolder" ]; then
+                        mv "$FLDIGLogFolder"logbook.adif "$ParkLogFolder"fldigi_log_$MyPark.adi
+                        #process MY_SIG info on the logs for fldigi
+                        sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"fldigi_log_$MyPark.adi > "$ParkLogFolder"fldigi_log_$MyPark.adi
+                        echo "Processed fldigi logs to $ParkLogFolder for Park $MyPark"
+                        echo "Moved fldigi logs to $ParkLogFolder"
+                        touch "$FLDIGLogFolder"logbook.adif
+                    fi
+
+                    #move varac logs if exist and touch new log to keep conky happy rename to varac_log_$MyPark.adi
+                    if [ -f "$VARACLog" ]; then
+                        mv "$VARACLog" "$ParkLogFolder"varac_log_$MyPark.adi
+                        #process MY_SIG info on the logs for varac
+                        sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"varac_log_$MyPark.adi > "$ParkLogFolder"varac_log_$MyPark.adi
+                        echo "Processed varac logs to $ParkLogFolder for Park $MyPark"
+                        echo "Moved varac logs to $ParkLogFolder"
+                        touch "$VARACLog"
+                    fi   
 
                     echo 
                     read -p "Enter any activation notes: " notes
@@ -95,47 +104,13 @@ if [ -f ~/.pota-lock ]; then
                     uptime=$(uptime -p)
                     echo "$MyPark Working Time: $uptime" >> "$ParkLogFolder"notes.txt
 
+                    #count contacts from all logs for reference
+                    contactCount=$(grep -c "<call:" "$ParkLogFolder"wsjtx_log_$MyPark.adi)
+                    contactCount=$((contactCount + $(grep -c "<call:" "$ParkLogFolder"ssb_$MyPark.adi)))
+                    
+                    echo "Total Contacts: $contactCount" >> "$ParkLogFolder"notes.txt
+                    echo "Added contact count to notes.txt"
 
-                    read -p "Attach network to upload TQSL now? (y/n): " tqsl
-
-                    if [ "$tqsl" == "y" ]; then
-                        #check for internet
-                        if ping -q -c 1 -W 1 arrl.org >/dev/null; then
-
-                            #check for TQSL
-                            if [[ $(whereis tqsl | grep bin) ]]; then
-                                echo "TQSL is installed"
-                            else
-                                echo "TQSL is not installed?"
-                                echo "73.."
-                                exit 1
-                            fi
-
-                            #OEM check you need to edit file
-                            if [ "$LOTW_LOCATION" == "United States" ]; then
-                                echo "LOTW location is not set? edit this file"
-                                echo "73.."
-                                exit 1
-                            fi
-
-                            echo "Internet is up, uploading to TQSL"
-                            if [ -f "$ParkLogFolder"wsjtx_log.adi ]; then
-                                tqsl -a all -d -u -l "$LOTW_LOCATION" "$ParkLogFolder"wsjtx_log.adi
-                                echo "Uploaded wsjtx_log.adi to LOTW"
-                            fi
-                            if [ -f "$ParkLogFolder"SSB.adi ]; then
-                                tqsl -a all -d -u -l "$LOTW_LOCATION" "$ParkLogFolder"SSB.adi
-                                echo "Uploaded SSB.adi to LOTW"
-                            fi
-                            if [ -f "$ParkLogFolder"ssb.adi ]; then
-                                tqsl -a all -d -u -l "$LOTW_LOCATION" "$ParkLogFolder"ssb.adi
-                                echo "Uploaded ssb.adi to LOTW"
-                            fi
-
-                        else
-                            echo "Internet is down, please upload to manually"
-                        fi
-                    fi
 
                 else
                     echo "error moving $WSJTLogFolder dose not exist"
