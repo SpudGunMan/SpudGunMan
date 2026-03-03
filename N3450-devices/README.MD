@@ -4,7 +4,7 @@
 ## evolve 4
 - X004IH4XEL
   - PONKLOIE Laptop 11.6" Laptop Travel Laptops, Black New Made In China
-  - N4000 Dual1GhzCore intel 8GM RAM 256SATA
+  - N4000 Dual1GhzCore intel 8GB RAM 256SATA
   - $50-170 (shipped Q1 2026 Amazon)
   - shipped with windows 11
   - has much improved screen and Keyboard is much better!
@@ -12,6 +12,8 @@
 ![evolve 4](evolv4.jpeg)
 comes with all shown.
 keyboard has a overlay protector which just flops on top
+
+I found the included power wart might be garbage and not provide current well.
 
 ![evolve 4](e4SATA.jpeg)
 now with access port and cheap drive.. 
