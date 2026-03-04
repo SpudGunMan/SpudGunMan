@@ -22,6 +22,12 @@ had some disk i/o issues and re-seating it might have helped performance.
 ![e4 bios](e4-bios.jpeg)
 still looks sus has a TPM chip?
 
+### Issues working on 3-2026
+- heat related lock up? looks like its video related on dumps saw a new patch out interestingly for intel chipset after crashing a lot the other day!
+- going to try swapping to a better SATA
+- ran it hot hot and didnt seem to kill it
+- need to invesitgate sound and video drivers more try disabling
+
 ## evolve 3
 A classic, well loved and still kicking after all these years Linux Mint supporting all hardware now.
 
