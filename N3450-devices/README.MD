@@ -21,6 +21,8 @@ had some disk i/o issues and re-seating it might have helped performance.
 
 ![e4 bios](e4-bios.jpeg)
 still looks sus has a TPM chip?
+a lot of heat throttling was shut off
+also it seems to use 2GB ram for system video?
 
 ### Issues had to resolve with OEM hardware
 Installed a new SATA (same brand as used in e3 below) Things seem more stable for install of a new OS this go round. The issue might be the cheap loking storage chip. Had many issues with hardware locking and other random i/o errors. Things seem much better and stable after replacing the SATA.
