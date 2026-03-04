@@ -24,9 +24,10 @@ still looks sus has a TPM chip?
 
 ### Issues working on 3-2026
 - heat related lock up? looks like its video related on dumps saw a new patch out interestingly for intel chipset after crashing a lot the other day!
-- going to try swapping to a better SATA
 - ran it hot hot and didnt seem to kill it
 - need to invesitgate sound and video drivers more try disabling
+
+Installed a new SATA (same brand as used in e3 below) Things seem more stable for install of a new OS this go round. The issue might be the cheap loking storage chip.
 
 ## evolve 3
 A classic, well loved and still kicking after all these years Linux Mint supporting all hardware now.
