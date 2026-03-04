@@ -27,6 +27,8 @@ also it seems to use 2GB ram for system video?
 ### Issues had to resolve with OEM hardware
 Installed a new SATA (same brand as used in e3 below) Things seem more stable for install of a new OS this go round. The issue might be the cheap loking storage chip. Had many issues with hardware locking and other random i/o errors. Things seem much better and stable after replacing the SATA.
 
+fixed stability for a bit but heat related stability seems back after a few hours of use.
+
 ## evolve 3
 A classic, well loved and still kicking after all these years Linux Mint supporting all hardware now.
 
