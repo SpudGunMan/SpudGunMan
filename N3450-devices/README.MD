@@ -35,6 +35,8 @@ Installed a new SATA (same brand as used in e3 below) Things seem more stable fo
 
 fixed stability for a bit but heat related stability seems back after a few hours of use.
 
+I dont know if this thing is worth the trouble but its 5 seconds faster on the decode of ft8 benchmark
+
 ## evolve 3
 A classic, well loved and still kicking after all these years Linux Mint supporting all hardware now.
 
