@@ -15,7 +15,7 @@
 LOTW_LOCATION="United States"
 logFolder=~/Documents/log_archive/
 WSJTLogFolder=~/.local/share/WSJT-X/
-FLDIGLog=~/.fldigi/logs/logbook.adif
+FLDIGLogFolder=~/.fldigi/logs/
 VARACLog=~/Documents/log_archive/Varac_qso_log.adi
 
 
