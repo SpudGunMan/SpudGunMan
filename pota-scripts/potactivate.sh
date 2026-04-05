@@ -63,59 +63,49 @@ if [ -f ~/.pota-lock ]; then
                         #process MY_SIG info on the logs
                         sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
                         echo "Processed WSJTX logs to $ParkLogFolder for Park $MyPark"
-                    fi 
-                    
-                    #if operated SSB expected to find ssb.adi or SSB.adi
-                    if [ -f "$ParkLogFolder"ssb.adi ]; then
-                        #process MY_SIG info on the logs for ssb
-                        sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"ssb.adi > "$ParkLogFolder"ssb_$MyPark.adi
-                        echo "Processed ssb logs to $ParkLogFolder for Park $MyPark"
                     fi
-
-                    #move fldigi logs if exist and touch new log to keep conky happy rename to fldigi_log_$MyPark.adi
-                    if [ -d "$FLDIGLogFolder" ]; then
-                        mv "$FLDIGLogFolder"logbook.adif "$ParkLogFolder"fldigi_log_$MyPark.adi
-                        #process MY_SIG info on the logs for fldigi
-                        sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"fldigi_log_$MyPark.adi > "$ParkLogFolder"fldigi_log_$MyPark.adi
-                        echo "Processed fldigi logs to $ParkLogFolder for Park $MyPark"
-                        echo "Moved fldigi logs to $ParkLogFolder"
-                        touch "$FLDIGLogFolder"logbook.adif
-                    fi
-
-                    #move varac logs if exist and touch new log to keep conky happy rename to varac_log_$MyPark.adi
-                    if [ -f "$VARACLog" ]; then
-                        mv "$VARACLog" "$ParkLogFolder"varac_log_$MyPark.adi
-                        #process MY_SIG info on the logs for varac
-                        sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"varac_log_$MyPark.adi > "$ParkLogFolder"varac_log_$MyPark.adi
-                        echo "Processed varac logs to $ParkLogFolder for Park $MyPark"
-                        echo "Moved varac logs to $ParkLogFolder"
-                        touch "$VARACLog"
-                    fi   
-
-                    echo 
-                    read -p "Enter any activation notes: " notes
-                    if [ -z "$notes" ]; then
-                        notes="No notes provided"
-                    else
-                        echo "$notes" > "$ParkLogFolder"notes.txt
-                        echo "Added notes to $ParkLogFolder"
-                    fi
-                    #get system uptime use for park work time estimate
-                    uptime=$(uptime -p)
-                    echo "$MyPark Working Time: $uptime" >> "$ParkLogFolder"notes.txt
-
-                    #count contacts from all logs for reference
-                    contactCount=$(grep -c "<call:" "$ParkLogFolder"wsjtx_log_$MyPark.adi)
-                    contactCount=$((contactCount + $(grep -c "<call:" "$ParkLogFolder"ssb_$MyPark.adi)))
-                    
-                    echo "Total Contacts: $contactCount" >> "$ParkLogFolder"notes.txt
-                    echo "Added contact count to notes.txt"
-
-
-                else
-                    echo "error moving $WSJTLogFolder dose not exist"
-                    exit 1
                 fi
+
+                #move fldigi logs if exist and touch new log to keep conky happy rename to fldigi_log_$MyPark.adi
+                if [ -d "$FLDIGLogFolder" ] && [ -f "$FLDIGLogFolder"logbook.adif ]; then
+                    mv "$FLDIGLogFolder"logbook.adif "$ParkLogFolder"fldigi_log_$MyPark.adi
+                    #process MY_SIG info on the logs for fldigi
+                    tmp_fldigi_file=$(mktemp)
+                    sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"fldigi_log_$MyPark.adi > "$tmp_fldigi_file" && mv "$tmp_fldigi_file" "$ParkLogFolder"fldigi_log_$MyPark.adi
+                    echo "Processed fldigi logs to $ParkLogFolder for Park $MyPark"
+                    echo "Moved fldigi logs to $ParkLogFolder"
+                    touch "$FLDIGLogFolder"logbook.adif
+                fi
+
+                #move varac logs if exist and touch new log to keep conky happy rename to varac_log_$MyPark.adi
+                if [ -f "$VARACLog" ]; then
+                    mv "$VARACLog" "$ParkLogFolder"varac_log_$MyPark.adi
+                    #process MY_SIG info on the logs for varac
+                    tmp_varac_file=$(mktemp)
+                    sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"varac_log_$MyPark.adi > "$tmp_varac_file" && mv "$tmp_varac_file" "$ParkLogFolder"varac_log_$MyPark.adi
+                    echo "Processed varac logs to $ParkLogFolder for Park $MyPark"
+                    echo "Moved varac logs to $ParkLogFolder"
+                    touch "$VARACLog"
+                fi   
+
+                echo 
+                read -p "Enter any activation notes: " notes
+                if [ -z "$notes" ]; then
+                    notes="No notes provided"
+                else
+                    echo "$notes" > "$ParkLogFolder"notes.txt
+                    echo "Added notes to $ParkLogFolder"
+                fi
+                #get system uptime use for park work time estimate
+                uptime=$(uptime -p)
+                echo "$MyPark Working Time: $uptime" >> "$ParkLogFolder"notes.txt
+
+                #count contacts from all logs for reference
+                contactCount=$(grep -c "<call:" "$ParkLogFolder"wsjtx_log_$MyPark.adi)
+                contactCount=$((contactCount + $(grep -c "<call:" "$ParkLogFolder"ssb_$MyPark.adi)))
+                
+                echo "Total Contacts: $contactCount" >> "$ParkLogFolder"notes.txt
+                echo "Added contact count to notes.txt"
 
                 rm ~/.pota-lock
                 echo "Lockfile removed"
