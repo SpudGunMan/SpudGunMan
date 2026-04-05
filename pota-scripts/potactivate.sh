@@ -157,48 +157,68 @@ if [ ! -f ~/.pota-park ]; then
     park=$parkDesignator
     #end function
 else
-    echo "Select a park by entering the number or create a new park by selecting # NEW*PARK"
-    select opt in $(cat ~/.pota-park) SEARCH NEW*PARK QUIT; do
-        case $opt in
-            NEW*PARK)
-                #create park file (duplicate from above)
-                echo "Please enter the park details.."
-                read -p "Enter the park details(UsefullName): " parkID
-                #remove spaces
-                parkID=$(echo $parkID | tr -d '[:space:]')
-                
-                read -p "Enter the park designator(ie. US-3180): " parkDesignator
-                # Convert to uppercase
-                parkDesignator=$(echo $parkDesignator | tr '[:lower:]' '[:upper:]')
-                echo "$parkDesignator$seperator$parkID" >> ~/.pota-park
-                echo "Collected park: $parkDesignator, $parkID"
-                park=$parkDesignator
-                #end function
-                break
-                ;;
-            SEARCH)
-                #if found grid2pota.sh display parks
-                if [ -f grid2pota.sh ]; then
-                    bash grid2pota.sh
-                else
-                    echo "grid2pota.sh not found"
-                fi
-                ;;
-            QUIT)
-                echo "73.."
-                exit 0
-                ;;
-            *)
-                park=$(echo $opt | cut -d$seperator -f1)
-                parkID=$(echo $opt | cut -d$seperator -f2)
-                if [ -z "$park" ]; then
-                    echo "Invalid selection"
-                else
-                    echo "Activating: $park, $parkID"
-                    break
-                fi
-                ;;
-        esac
+    echo
+    echo "=============================="
+    echo "   Select Park for Activation"
+    echo "=============================="
+
+    park_entries=()
+    while IFS= read -r line; do
+        [ -n "$line" ] && park_entries+=("$line")
+    done < ~/.pota-park
+
+    # Build display options
+    options=()
+    for entry in "${park_entries[@]}"; do
+        p_designator=$(echo "$entry" | cut -d"$seperator" -f1)
+        p_name=$(echo "$entry" | cut -d"$seperator" -f2)
+        options+=("$p_designator - $p_name")
+    done
+
+    options+=("SEARCH (find nearby parks)")
+    options+=("NEW PARK")
+    options+=("QUIT")
+
+    PS3="Enter selection number: "
+    select opt in "${options[@]}"; do
+        search_idx=$((${#park_entries[@]} + 1))
+        new_idx=$((${#park_entries[@]} + 2))
+        quit_idx=$((${#park_entries[@]} + 3))
+
+        if [[ "$REPLY" -ge 1 && "$REPLY" -le "${#park_entries[@]}" ]]; then
+            selected="${park_entries[$((REPLY - 1))]}"
+            park=$(echo "$selected" | cut -d"$seperator" -f1)
+            parkID=$(echo "$selected" | cut -d"$seperator" -f2)
+            echo "Activating: $park, $parkID"
+            break
+
+        elif [[ "$REPLY" -eq "$search_idx" ]]; then
+            if [ -f grid2pota.sh ]; then
+                bash grid2pota.sh
+            else
+                echo "grid2pota.sh not found"
+            fi
+
+        elif [[ "$REPLY" -eq "$new_idx" ]]; then
+            echo "Please enter the park details.."
+            read -r -p "Enter the park details (UsefulName): " parkID
+            parkID=$(echo "$parkID" | tr -d '[:space:]')
+
+            read -r -p "Enter the park designator (ie. US-3180): " parkDesignator
+            parkDesignator=$(echo "$parkDesignator" | tr '[:lower:]' '[:upper:]')
+
+            echo "$parkDesignator$seperator$parkID" >> ~/.pota-park
+            echo "Collected park: $parkDesignator, $parkID"
+            park="$parkDesignator"
+            break
+
+        elif [[ "$REPLY" -eq "$quit_idx" ]]; then
+            echo "73.."
+            exit 0
+
+        else
+            echo "Invalid selection. Try again."
+        fi
     done
 fi
 
