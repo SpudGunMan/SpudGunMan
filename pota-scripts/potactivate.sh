@@ -64,6 +64,8 @@ if [ -f ~/.pota-lock ]; then
                         sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
                         echo "Processed WSJTX logs to $ParkLogFolder for Park $MyPark"
                     fi
+
+                    echo "Moved WSJT logs to $ParkLogFolder"
                 fi
 
                 #move fldigi logs if exist and touch new log to keep conky happy rename to fldigi_log_$MyPark.adi
