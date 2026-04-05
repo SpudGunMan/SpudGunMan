@@ -16,7 +16,7 @@ LOTW_LOCATION="United States"
 logFolder=~/Documents/log_archive/
 WSJTLogFolder=~/.local/share/WSJT-X/
 FLDIGLogFolder=~/.fldigi/logs/
-VARACLog=~/Documents/log_archive/Varac_qso_log.adi
+VARACLog=~/Documents/log_archive/VarAC_qso_log.adi
 
 
 
@@ -56,6 +56,7 @@ if [ -f ~/.pota-lock ]; then
                     mv "$WSJTLogFolder"wsjtx.log "$ParkLogFolder"
                     #replace file to keep conky from complaining
                     touch "$WSJTLogFolder"wsjtx.log
+                    touch "$WSJTLogFolder"wsjtx_log.adi
                     echo "Moved WSJT logs to $ParkLogFolder"
 
                     # if operated FT8 expected to find wsjtx_log.adi
@@ -101,13 +102,6 @@ if [ -f ~/.pota-lock ]; then
                 #get system uptime use for park work time estimate
                 uptime=$(uptime -p)
                 echo "$MyPark Working Time: $uptime" >> "$ParkLogFolder"notes.txt
-
-                #count contacts from all logs for reference
-                contactCount=$(grep -c "<call:" "$ParkLogFolder"wsjtx_log_$MyPark.adi)
-                contactCount=$((contactCount + $(grep -c "<call:" "$ParkLogFolder"ssb_$MyPark.adi)))
-                
-                echo "Total Contacts: $contactCount" >> "$ParkLogFolder"notes.txt
-                echo "Added contact count to notes.txt"
 
                 rm ~/.pota-lock
                 echo "Lockfile removed"
