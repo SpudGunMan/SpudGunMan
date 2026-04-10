@@ -56,7 +56,7 @@ if [ -f ~/.pota-lock ]; then
                     mv "$WSJTLogFolder"wsjtx.log "$ParkLogFolder"
                     #replace file to keep conky from complaining
                     touch "$WSJTLogFolder"wsjtx.log
-                    touch "$WSJTLogFolder"wsjtx_log.adi
+                    printf '%s\n' "<ADIF_VER:5>3.1.1" "<EOH>" > "$WSJTLogFolder"wsjtx_log.adi
                     echo "Moved WSJT logs to $ParkLogFolder"
 
                     # if operated FT8 expected to find wsjtx_log.adi
@@ -77,7 +77,7 @@ if [ -f ~/.pota-lock ]; then
                     sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"fldigi_log_$MyPark.adi > "$tmp_fldigi_file" && mv "$tmp_fldigi_file" "$ParkLogFolder"fldigi_log_$MyPark.adi
                     echo "Processed fldigi logs to $ParkLogFolder for Park $MyPark"
                     echo "Moved fldigi logs to $ParkLogFolder"
-                    touch "$FLDIGLogFolder"logbook.adif
+                    printf '%s\n' "<ADIF_VER:5>3.1.1" "<EOH>" > "$FLDIGLogFolder"logbook.adif
                 fi
 
                 #move varac logs if exist and touch new log to keep conky happy rename to varac_log_$MyPark.adi
@@ -88,7 +88,7 @@ if [ -f ~/.pota-lock ]; then
                     sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|gI" "$ParkLogFolder"varac_log_$MyPark.adi > "$tmp_varac_file" && mv "$tmp_varac_file" "$ParkLogFolder"varac_log_$MyPark.adi
                     echo "Processed varac logs to $ParkLogFolder for Park $MyPark"
                     echo "Moved varac logs to $ParkLogFolder"
-                    touch "$VARACLog"
+                    printf '%s\n' "<ADIF_VER:5>3.1.1" "<EOH>" > "$VARACLog"
                 fi   
 
                 echo 
