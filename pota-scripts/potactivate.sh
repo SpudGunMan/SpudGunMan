@@ -110,9 +110,15 @@ if [ -f ~/.pota-lock ]; then
                 ;;
             No*)
                 echo "Happy Activating 73.."
-                #force time sync here
-                chronyc -a makestep
-                chronyc sources -v
+                # Best-effort time sync; skip cleanly if chrony is unavailable or unauthorized.
+                if command -v chronyc >/dev/null 2>&1; then
+                    if chronyc -a makestep >/dev/null 2>&1; then
+                        chronyc sources -v >/dev/null 2>&1 || true
+                    else
+                        echo "Chrony control not authorized; skipping time sync."
+                    fi
+                fi
+                break
                 ;;
         esac
     done
