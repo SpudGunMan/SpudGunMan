@@ -118,7 +118,7 @@ if [ -f ~/.pota-lock ]; then
                         echo "Chrony control not authorized; skipping time sync."
                     fi
                 fi
-                break
+                exit 0
                 ;;
         esac
     done
