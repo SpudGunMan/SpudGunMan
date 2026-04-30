@@ -27,11 +27,6 @@ date=$(date -u +%Y%m%d)
 seperator=":"
 LaunchGPSD2HAM="true"
 
-# Exit cleanly whether script is executed or sourced.
-safe_exit() {
-    return 0 2>/dev/null || exit 0
-}
-
 echo
 echo "*****************************************"
 echo "POTA - Parks On The Air Activation Script"
@@ -111,19 +106,11 @@ if [ -f ~/.pota-lock ]; then
                 rm ~/.pota-lock
                 echo "Lockfile removed"
                 echo "73.."
-                safe_exit
+                exit 0
                 ;;
             No*)
                 echo "Happy Activating 73.."
-                # Best-effort time sync; skip cleanly if chrony is unavailable or unauthorized.
-                if command -v chronyc >/dev/null 2>&1; then
-                    if chronyc -a makestep >/dev/null 2>&1; then
-                        chronyc sources -v >/dev/null 2>&1 || true
-                    else
-                        echo "Chrony control not authorized; skipping time sync."
-                    fi
-                fi
-                safe_exit
+                exit 0
                 ;;
         esac
     done
