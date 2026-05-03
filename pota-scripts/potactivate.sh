@@ -222,11 +222,10 @@ if [ -f ~/.pota-lock ]; then
     echo "POTA - Parks On The Air welcome back $(cat ~/.pota-call)"
     echo "You have an active activation in progress $MyPark, $MyParkID"
     echo "Would you like to wrap up your activation?"
-    echo "Select 1 Yes or 2 No"
     echo
 
     while true; do
-        if ! menu_pick "Wrap up activation?" "Yes-WrapUp" "No-Nevermind" "Sync-Time-Now"; then
+        if ! menu_pick "Wrap up activation?" "Sync-Time-Now" "Yes-WrapUp" "No-Nevermind"; then
             echo "73.."
             exit 0
         fi
