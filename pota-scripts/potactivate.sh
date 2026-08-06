@@ -233,19 +233,22 @@ if [ -f ~/.pota-lock ]; then
         case "$MENU_VALUE" in
             Yes*)
                 if [ -d "$WSJTLogFolder" ]; then
-                    mv "$WSJTLogFolder"wsjtx_log.adi "$ParkLogFolder"
+                    # Move all wsjtx_log*.adi files
+                    find "$WSJTLogFolder" -maxdepth 1 -name 'wsjtx_log*.adi' -type f -exec mv {} "$ParkLogFolder" \;
                     mv "$WSJTLogFolder"wsjtx.log "$ParkLogFolder"
                     #replace file to keep conky from complaining
                     touch "$WSJTLogFolder"wsjtx.log
                     printf '%s\n' "<ADIF_VER:5>3.1.1" "<EOH>" > "$WSJTLogFolder"wsjtx_log.adi
                     echo "Moved WSJT logs to $ParkLogFolder"
 
-                    # if operated FT8 expected to find wsjtx_log.adi
-                    if [ -f "$ParkLogFolder"wsjtx_log.adi ]; then
-                        #process MY_SIG info on the logs
-                        sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$ParkLogFolder"wsjtx_log.adi > "$ParkLogFolder"wsjtx_log_$MyPark.adi
-                        echo "Processed WSJTX logs to $ParkLogFolder for Park $MyPark"
-                    fi
+                    # Process all wsjtx_log*.adi files found
+                    for wsjtx_file in "$ParkLogFolder"wsjtx_log*.adi; do
+                        if [ -f "$wsjtx_file" ]; then
+                            #process MY_SIG info on the logs
+                            sed "s|<eor>|<MY_SIG:4>POTA <MY_SIG_INFO:6>$MyPark <eor>|g" "$wsjtx_file" > "$wsjtx_file".tmp && mv "$wsjtx_file".tmp "$wsjtx_file"
+                            echo "Processed WSJTX logs $(basename "$wsjtx_file") to $ParkLogFolder for Park $MyPark"
+                        fi
+                    done
 
                     echo "Moved WSJT logs to $ParkLogFolder"
                 fi
